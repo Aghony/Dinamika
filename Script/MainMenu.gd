@@ -2,7 +2,7 @@ extends Control
 
 @onready var play_button = $Panel/VBoxContainer/Play
 @onready var setting_button =$Panel/VBoxContainer/Setting
-@onready var credit_button =$Panel/VBoxContainer/Button
+@onready var credit_button =$Panel/VBoxContainer/Credit
 
 
 func _ready():
@@ -17,7 +17,7 @@ func _on_play_pressed():
 
 
 func _on_setting_pressed():
-	get_tree().change_scene_to_file("res://Scene/Setting.tscn")
+	get_tree().change_scene_to_file("res://Scene/SettingMenu.tscn")
 
 
 func _on_credit_pressed():

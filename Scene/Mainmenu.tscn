@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://3c6r5o2kiagr"]
 
+[ext_resource type="Script" uid="uid://dblnnxa6uhut0" path="res://Script/MainMenu.gd" id="1_0n2vn"]
+
 [node name="Mainmenu" type="Control" unique_id=179729542]
 layout_mode = 3
 anchors_preset = 15
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_0n2vn")
 
 [node name="Panel" type="Panel" parent="." unique_id=1188044502]
 layout_mode = 1
@@ -23,10 +26,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -239.0
-offset_top = -145.0
-offset_right = 199.0
-offset_bottom = 189.0
+offset_left = -245.0
+offset_top = -183.5
+offset_right = 245.0
+offset_bottom = 183.5
 grow_horizontal = 2
 grow_vertical = 2
 
