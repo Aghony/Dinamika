@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://ca06s60hgffkm"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_15ruy"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_dwj6c"]
+
+[sub_resource type="Resource" id="Resource_hucp3"]
+script = ExtResource("1_15ruy")
+hunger_change = 5
+health_change = -10
+outcome_text = "Debu pekat membuatmu terbatuk dan sesak."
+metadata/_custom_type_script = "uid://7qiebdae1tlj"
+
+[sub_resource type="Resource" id="Resource_efoif"]
+script = ExtResource("1_15ruy")
+required_items = Array[String](["masker"])
+stress_change = -5
+outcome_text = "Masker menyaring debu pekat dengan baik."
+metadata/_custom_type_script = "uid://7qiebdae1tlj"
+
+[resource]
+script = ExtResource("2_dwj6c")
+event_id = "evt_pagi_debu"
+event_type = 1
+allowed_session = 0
+item_choice_1 = SubResource("Resource_efoif")
+ignore_choice = SubResource("Resource_hucp3")
+metadata/_custom_type_script = "uid://2ssetl8ysgtg"

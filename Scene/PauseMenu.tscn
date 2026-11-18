@@ -12,24 +12,13 @@ grow_vertical = 2
 script = ExtResource("1_5vuso")
 
 [node name="Panel" type="Panel" parent="." unique_id=661846854]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Button" type="Button" parent="Panel" unique_id=1669948616]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -66.0
-offset_top = 2.0
-offset_right = -2.0
-offset_bottom = 63.0
-grow_horizontal = 0
-text = "Pause"
 
 [node name="Panel2" type="Panel" parent="." unique_id=1022289594]
 layout_mode = 1
@@ -88,7 +77,19 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Quit"
 
-[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
+[node name="Button" type="Button" parent="." unique_id=1669948616]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -66.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 63.0
+grow_horizontal = 0
+text = "Pause"
+
 [connection signal="pressed" from="Panel2/VBoxContainer/HBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Panel2/VBoxContainer/HBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="Panel2/VBoxContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

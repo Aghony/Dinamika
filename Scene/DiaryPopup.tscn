@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://edi205pp6fqq"]
+
+[ext_resource type="Script" uid="uid://dwo1s2gehbaif" path="res://Script/DiaryPopup.gd" id="1_frciw"]
+
+[node name="DiaryPopup" type="Control" unique_id=2017963503]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_frciw")
+
+[node name="DimmerBackground" type="ColorRect" parent="." unique_id=450929809]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.39215687)
+
+[node name="BookPanel" type="Panel" parent="DimmerBackground" unique_id=518688141]
+layout_mode = 0
+offset_left = 317.0
+offset_top = 28.0
+offset_right = 839.0
+offset_bottom = 647.0
+
+[node name="EventTitleLabel" type="Label" parent="DimmerBackground/BookPanel" unique_id=1505101958]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 28.0
+offset_right = 515.0
+offset_bottom = 115.0
+
+[node name="DiaryRichText" type="RichTextLabel" parent="DimmerBackground/BookPanel" unique_id=480147590]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 120.0
+offset_right = 506.0
+offset_bottom = 471.0
+
+[node name="CloseButton" type="Button" parent="DimmerBackground/BookPanel" unique_id=417225006]
+layout_mode = 0
+offset_left = 510.0
+offset_top = -29.0
+offset_right = 581.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 30
+text = "X"

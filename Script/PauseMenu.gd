@@ -1,7 +1,7 @@
 extends Control
 
 @onready var pause_panel = $Panel2
-@onready var pause_button = $Panel/Button
+@onready var pause_button = $Button
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS

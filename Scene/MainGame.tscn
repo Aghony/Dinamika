@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://df8lyqo3p1ucd"]
+
+[ext_resource type="Script" uid="uid://cdsx47re0xvcl" path="res://Script/MainGate.gd" id="1_qop27"]
+[ext_resource type="PackedScene" uid="uid://bjb4dwyujv3g1" path="res://Scene/EventPopup.tscn" id="2_cp47j"]
+[ext_resource type="PackedScene" uid="uid://edi205pp6fqq" path="res://Scene/DiaryPopup.tscn" id="3_squas"]
+[ext_resource type="PackedScene" uid="uid://lsfvcy1526xs" path="res://Scene/status_popup.tscn" id="4_noc35"]
+[ext_resource type="PackedScene" uid="uid://b6sqq7lypcstv" path="res://Scene/InventoryPopup.tscn" id="5_tsug7"]
+[ext_resource type="PackedScene" uid="uid://c86j1sxuhv8an" path="res://Scene/PauseMenu.tscn" id="6_noc35"]
+[ext_resource type="PackedScene" uid="uid://baau217lw4p2w" path="res://Scene/GameOverPopup.tscn" id="7_tsug7"]
+
+[node name="MainGame" type="Control" unique_id=1688068]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qop27")
+
+[node name="BackgroundPlaceholder" type="ColorRect" parent="." unique_id=1601198634]
+layout_mode = 0
+offset_right = 1148.0
+offset_bottom = 406.0
+color = Color(0.16470589, 1, 1, 1)
+
+[node name="RoundLabel" type="Label" parent="." unique_id=928959586]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 12.0
+offset_right = 64.0
+offset_bottom = 52.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="SunIcon" type="Label" parent="." unique_id=1038210217]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 14.0
+offset_right = 522.0
+offset_bottom = 37.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "UDAH PAGI SIR"
+
+[node name="MoonIcon" type="Label" parent="." unique_id=1308459403]
+layout_mode = 0
+offset_left = 563.0
+offset_top = 16.0
+offset_right = 669.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "MALAM WOIII"
+
+[node name="DiaryButton" type="Button" parent="." unique_id=674989009]
+layout_mode = 0
+offset_left = 1024.0
+offset_top = 5.0
+offset_right = 1084.0
+offset_bottom = 56.0
+
+[node name="MainCharButton" type="Button" parent="." unique_id=252976730]
+layout_mode = 0
+offset_left = 532.0
+offset_top = 439.0
+offset_right = 633.0
+offset_bottom = 580.0
+
+[node name="BackpackButton" type="Button" parent="." unique_id=1791126624]
+layout_mode = 0
+offset_left = 466.0
+offset_top = 470.0
+offset_right = 531.0
+offset_bottom = 549.0
+
+[node name="NextSessionButton" type="Button" parent="." unique_id=1374735657]
+layout_mode = 0
+offset_left = 1039.0
+offset_top = 562.0
+offset_right = 1132.0
+offset_bottom = 623.0
+
+[node name="EventPopup" parent="." unique_id=479491355 instance=ExtResource("2_cp47j")]
+visible = false
+layout_mode = 1
+
+[node name="DiaryPopup" parent="." unique_id=2017963503 instance=ExtResource("3_squas")]
+visible = false
+layout_mode = 1
+
+[node name="StatusPopup" parent="." unique_id=846701210 instance=ExtResource("4_noc35")]
+visible = false
+layout_mode = 1
+offset_left = -470.0
+offset_top = -76.0
+offset_right = -210.5
+offset_bottom = 279.0
+
+[node name="InventoryPopup" parent="." unique_id=1393002653 instance=ExtResource("5_tsug7")]
+visible = false
+layout_mode = 0
+offset_left = 248.0
+offset_top = 181.0
+offset_right = 932.0
+offset_bottom = 290.0
+
+[node name="PauseMenu" parent="." unique_id=1572177464 instance=ExtResource("6_noc35")]
+visible = false
+layout_mode = 1
+offset_left = -3.0
+offset_top = -1.0
+offset_right = -3.0
+offset_bottom = -1.0
+mouse_filter = 1
+
+[node name="GameOverPopup" parent="." unique_id=1758553860 instance=ExtResource("7_tsug7")]
+visible = false
+layout_mode = 1
