@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dhx0xt5gqy6bb"]
+
+[ext_resource type="Texture2D" uid="uid://cob2jajgcik82" path="res://Assets/Items/dokumen.png" id="1_heio5"]
+[ext_resource type="Script" uid="uid://c8g1s00g1il86" path="res://Script/Resources/ItemData.gd" id="2_rn1e3"]
+
+[resource]
+script = ExtResource("2_rn1e3")
+id = "dokumen"
+display_name = "Dokumen"
+icon = ExtResource("1_heio5")
+is_consumable = false
+weight = 0.1
+metadata/_custom_type_script = "uid://c8g1s00g1il86"

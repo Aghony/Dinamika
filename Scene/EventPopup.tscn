@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bjb4dwyujv3g1"]
 
 [ext_resource type="Script" uid="uid://camdead4h6875" path="res://Script/EventPopup.gd" id="1_f44pw"]
+[ext_resource type="Texture2D" uid="uid://cvppvdk0s8cng" path="res://Assets/UI/Buku/book_bg.png" id="2_nvggd"]
+[ext_resource type="Texture2D" uid="uid://jphr176ehug4" path="res://Assets/UI/Next.png" id="2_r8kvt"]
 
 [node name="EventPopup" type="Control" unique_id=479491355]
 layout_mode = 3
@@ -20,74 +22,117 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.42352942)
 
-[node name="BookPanel" type="Panel" parent="DimmerBackground" unique_id=1423881558]
-layout_mode = 0
-offset_left = 317.0
-offset_top = 28.0
-offset_right = 839.0
-offset_bottom = 647.0
+[node name="BookPanel" type="TextureRect" parent="DimmerBackground" unique_id=505674026]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -113.0
+offset_top = -127.0
+offset_right = 201.07983
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_nvggd")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="EventTitleLabel" type="Label" parent="DimmerBackground/BookPanel" unique_id=1726068907]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 28.0
-offset_right = 515.0
-offset_bottom = 115.0
+offset_left = 556.0
+offset_top = 191.0
+offset_right = 928.0
+offset_bottom = 278.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 
 [node name="StoryTextLabel" type="RichTextLabel" parent="DimmerBackground/BookPanel" unique_id=768907098]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 120.0
-offset_right = 506.0
-offset_bottom = 471.0
+offset_left = 562.0
+offset_top = 316.0
+offset_right = 914.0
+offset_bottom = 546.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 
 [node name="YesButton" type="Button" parent="DimmerBackground/BookPanel" unique_id=1079667922]
 layout_mode = 0
-offset_left = 129.0
-offset_top = 448.0
-offset_right = 235.0
-offset_bottom = 536.0
+offset_left = 596.66675
+offset_top = 567.0
+offset_right = 702.6668
+offset_bottom = 655.0
+flat = true
 
 [node name="NoButton" type="Button" parent="DimmerBackground/BookPanel" unique_id=1501140061]
-layout_mode = 0
-offset_left = 283.0
-offset_top = 449.0
-offset_right = 389.0
-offset_bottom = 537.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.960083
+offset_top = 153.5
+offset_right = 126.960144
+offset_bottom = 241.5
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
 
 [node name="ItemSlotButton2" type="TextureButton" parent="DimmerBackground/BookPanel" unique_id=1069623404]
 layout_mode = 0
-offset_left = 283.0
-offset_top = 449.0
-offset_right = 389.0
-offset_bottom = 537.0
+offset_left = 754.0
+offset_top = 573.0
+offset_right = 860.00006
+offset_bottom = 661.0
+stretch_mode = 5
 
 [node name="CrossedOverlay" type="TextureRect" parent="DimmerBackground/BookPanel/ItemSlotButton2" unique_id=409662090]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -6.666646
+offset_top = -11.6666565
+offset_right = 10.333351
+offset_bottom = 4.333374
 grow_horizontal = 2
 grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ItemSlotButton1" type="TextureButton" parent="DimmerBackground/BookPanel" unique_id=1992281021]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 448.0
-offset_right = 234.0
-offset_bottom = 536.0
+offset_left = 595.0
+offset_top = 568.6666
+offset_right = 701.0
+offset_bottom = 656.6666
+stretch_mode = 5
 
 [node name="CrossedOverlay" type="TextureRect" parent="DimmerBackground/BookPanel/ItemSlotButton1" unique_id=990967893]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -8.3333435
+offset_top = -11.666626
+offset_right = 16.666656
+offset_bottom = 2.333374
 grow_horizontal = 2
 grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ContinueButton" type="Button" parent="DimmerBackground/BookPanel" unique_id=476488951]
-layout_mode = 0
-offset_left = 449.0
-offset_top = 527.0
-offset_right = 555.0
-offset_bottom = 615.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 147.96002
+offset_top = 218.49994
+offset_right = 1435.9601
+offset_bottom = 1506.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+icon = ExtResource("2_r8kvt")
+flat = true

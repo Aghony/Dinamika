@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bc8dgjqf1iwwx"]
+
+[ext_resource type="Texture2D" uid="uid://dq14nnybk621k" path="res://Assets/Items/senter.png" id="1_dww3d"]
+[ext_resource type="Script" uid="uid://c8g1s00g1il86" path="res://Script/Resources/ItemData.gd" id="2_uf5lv"]
+
+[resource]
+script = ExtResource("2_uf5lv")
+id = "senter"
+display_name = "Senter"
+icon = ExtResource("1_dww3d")
+is_consumable = false
+weight = 0.15
+metadata/_custom_type_script = "uid://c8g1s00g1il86"

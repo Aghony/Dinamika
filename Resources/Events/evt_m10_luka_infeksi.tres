@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://bxkjoyic421ja"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_hvnls"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_b4ea2"]
+
+[sub_resource type="Resource" id="Resource_s34os"]
+script = ExtResource("1_hvnls")
+choice_text = "Biarkan luka tanpa perawatan"
+hunger_change = 12
+health_change = -26
+stress_change = 18
+travel_change = -0.5
+outcome_text = "Infeksi menyebar membuat kakimu bengkak dan demam ringan."
+
+[sub_resource type="Resource" id="Resource_thkll"]
+script = ExtResource("1_hvnls")
+choice_text = "Konsumsi Obat-obatan"
+required_items = Array[String](["obat_obatan"])
+consumed_items = Array[String](["obat_obatan"])
+health_change = 35
+stress_change = -10
+outcome_text = "Obat meredakan peradangan dengan cepat sehingga kakimu kembali ringan."
+
+[sub_resource type="Resource" id="Resource_v2jgs"]
+script = ExtResource("1_hvnls")
+choice_text = "Bersihkan & balut Perban Coklat"
+required_items = Array[String](["perban_coklat"])
+consumed_items = Array[String](["perban_coklat"])
+health_change = 20
+stress_change = -5
+travel_change = 0.5
+outcome_text = "Perban melindungi luka dari debu asap dan mengurangi rasa nyeri."
+
+[resource]
+script = ExtResource("2_b4ea2")
+event_id = "evt_m10_luka_infeksi"
+event_type = 1
+allowed_session = 1
+story_text = "Luka gores di kakimu mulai berdenyut perih dan membengkak panas setelah seharian berjalan."
+item_choice_1 = SubResource("Resource_thkll")
+item_choice_2 = SubResource("Resource_v2jgs")
+ignore_choice = SubResource("Resource_s34os")

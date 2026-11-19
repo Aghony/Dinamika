@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cigjn08asmd4q"]
+
+[ext_resource type="Script" uid="uid://c8g1s00g1il86" path="res://Script/Resources/ItemData.gd" id="1_bse45"]
+[ext_resource type="Texture2D" uid="uid://d2mlcrwsuwxa4" path="res://Assets/Items/obat_obatan.png" id="1_cnt0x"]
+
+[resource]
+script = ExtResource("1_bse45")
+id = "obat_obatan"
+display_name = "Obat obatan"
+icon = ExtResource("1_cnt0x")
+weight = 0.25
+metadata/_custom_type_script = "uid://c8g1s00g1il86"

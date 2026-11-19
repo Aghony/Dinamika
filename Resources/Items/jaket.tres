@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://uybvq6o7nq6v"]
+
+[ext_resource type="Script" uid="uid://c8g1s00g1il86" path="res://Script/Resources/ItemData.gd" id="1_jl7fh"]
+[ext_resource type="Texture2D" uid="uid://cdmg1o1ojtgt6" path="res://Assets/Items/jaket.png" id="1_nb6xi"]
+
+[resource]
+script = ExtResource("1_jl7fh")
+id = "jaket"
+display_name = "Jaket"
+icon = ExtResource("1_nb6xi")
+is_consumable = false
+weight = 0.7
+metadata/_custom_type_script = "uid://c8g1s00g1il86"

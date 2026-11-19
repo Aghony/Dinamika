@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://lsfvcy1526xs"]
 
 [ext_resource type="Script" uid="uid://8gsenta746ld" path="res://Script/StatusPopup.gd" id="1_aar4m"]
+[ext_resource type="Texture2D" uid="uid://djpnmrpbc4w83" path="res://Assets/UI/exite.png" id="2_jnxbb"]
 
 [node name="StatusPopup" type="Control" unique_id=846701210]
 layout_mode = 3
@@ -19,50 +20,82 @@ script = ExtResource("1_aar4m")
 
 [node name="StatusPanel" type="Panel" parent="." unique_id=830753469]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.25
+offset_top = -258.75
+offset_right = 183.25
+offset_bottom = 258.75
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TitleLabel" type="Label" parent="StatusPanel" unique_id=1844171211]
 layout_mode = 0
-offset_left = 37.75
-offset_top = 148.5
-offset_right = 215.5
-offset_bottom = 171.5
+offset_left = 130.0
+offset_top = 302.75
+offset_right = 230.0
+offset_bottom = 327.75
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HealthLabel" type="Label" parent="StatusPanel" unique_id=1495174903]
 layout_mode = 0
-offset_left = 30.75
-offset_top = 196.5
-offset_right = 238.5
-offset_bottom = 219.5
+offset_left = 130.0
+offset_top = 350.75
+offset_right = 230.0
+offset_bottom = 375.75
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HungerLabel" type="Label" parent="StatusPanel" unique_id=297955795]
 layout_mode = 0
-offset_left = 39.75
-offset_top = 236.5
-offset_right = 220.5
-offset_bottom = 259.5
+offset_left = 130.0
+offset_top = 390.75
+offset_right = 230.0
+offset_bottom = 415.75
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="StressLabel" type="Label" parent="StatusPanel" unique_id=1757183182]
 layout_mode = 0
-offset_left = 38.75
-offset_top = 275.5
-offset_right = 214.75
-offset_bottom = 298.5
+offset_left = 130.0
+offset_top = 429.75
+offset_right = 230.0
+offset_bottom = 454.75
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CompanionLabel" type="Label" parent="StatusPanel" unique_id=1122518290]
 layout_mode = 0
-offset_left = 43.75
-offset_top = 312.5
-offset_right = 222.75
-offset_bottom = 335.5
+offset_left = 130.0
+offset_top = 466.75
+offset_right = 230.0
+offset_bottom = 491.75
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CloseButton" type="Button" parent="StatusPanel" unique_id=1604697194]
 layout_mode = 0
-offset_left = 231.75
-offset_top = -15.5
-offset_right = 277.5
-offset_bottom = 30.25
+offset_left = 348.25
+offset_top = -15.25
+offset_right = 856.25
+offset_bottom = 492.75
+scale = Vector2(0.1, 0.1)
+icon = ExtResource("2_jnxbb")
+flat = true
+
+[node name="FaceTextureRect" type="TextureRect" parent="StatusPanel" unique_id=963031517]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -119.25
+offset_top = 34.0
+offset_right = 120.75
+offset_bottom = 274.0
+grow_horizontal = 2
+expand_mode = 1
+stretch_mode = 5

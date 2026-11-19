@@ -12,6 +12,7 @@ extends Resource
 @export var hunger_change: int = 0                   # Negatif (-) mengurangi lapar, Positif (+) menambah lapar
 @export var health_change: int = 0                   # Positif (+) menyembuhkan, Negatif (-) melukai
 @export var stress_change: int = 0                   # Negatif (-) menenangkan, Positif (+) menambah stres
+@export var travel_change: float = 0.0      # Positif (+) maju lebih cepat, Negatif (-) terhambat
 
 @export_group("Perubahan Pendamping & Catatan")
 @export var lost_companions: Array[String] = []      # Isi jika pilihan ini membuat pendamping hilang/terpisah

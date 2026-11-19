@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://fwl5f42x45n5"]
+
+[ext_resource type="Texture2D" uid="uid://bkulponpieghs" path="res://Assets/Items/mainan_anak.png" id="1_cskp4"]
+[ext_resource type="Script" uid="uid://c8g1s00g1il86" path="res://Script/Resources/ItemData.gd" id="2_5cavh"]
+
+[resource]
+script = ExtResource("2_5cavh")
+id = "mainan_anak"
+display_name = "Mainan Anak"
+icon = ExtResource("1_cskp4")
+is_consumable = false
+weight = 0.3
+metadata/_custom_type_script = "uid://c8g1s00g1il86"

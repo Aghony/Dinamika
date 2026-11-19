@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://bjgjpk64oyxyw"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_lxk7w"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_ada3y"]
+
+[sub_resource type="Resource" id="Resource_h7rgp"]
+script = ExtResource("1_lxk7w")
+choice_text = "Begadang menimang hingga kelelahan"
+hunger_change = 20
+health_change = -10
+stress_change = 28
+outcome_text = "Kamu tidak tidur sama sekali dan kehabisan energi menghadapi esok hari."
+
+[sub_resource type="Resource" id="Resource_t6q3u"]
+script = ExtResource("1_lxk7w")
+choice_text = "Tenangkan dengan Botol Susu"
+required_items = Array[String](["botol_susu"])
+required_companions = Array[String](["bayi"])
+consumed_items = Array[String](["botol_susu"])
+health_change = 8
+stress_change = -28
+outcome_text = "Botol susu langsung meredakan tangis bayimu dalam hitungan menit."
+
+[sub_resource type="Resource" id="Resource_d44cq"]
+script = ExtResource("1_lxk7w")
+choice_text = "Alihkan perhatian pakai Mainan Anak"
+required_items = Array[String](["mainan_anak"])
+required_companions = Array[String](["bayi"])
+stress_change = -20
+outcome_text = "Mainan anak membuat bayimu kembali tenang hingga tertidur."
+
+[resource]
+script = ExtResource("2_ada3y")
+event_id = "evt_m12_bayi_gelisah"
+event_type = 1
+allowed_session = 1
+required_companions = Array[String](["bayi"])
+story_text = "Suara sirine pemadam dan bau asap menyengat membuat bayimu terbangun dan menangis histeris."
+item_choice_1 = SubResource("Resource_t6q3u")
+item_choice_2 = SubResource("Resource_d44cq")
+ignore_choice = SubResource("Resource_h7rgp")

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://d1mxx0l4cqpq5"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_j0gr2"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_hbpxj"]
+
+[sub_resource type="Resource" id="Resource_j0gr2"]
+script = ExtResource("1_j0gr2")
+choice_text = "Berhenti total dalam gelap"
+hunger_change = 15
+stress_change = 20
+outcome_text = "Terjebak dalam gelap total membuat rasa cemasmu melonjak tajam."
+
+[sub_resource type="Resource" id="Resource_hbpxj"]
+script = ExtResource("1_j0gr2")
+choice_text = "Nyalakan Senter + Baterai"
+required_items = Array[String](["senter", "baterai"])
+consumed_items = Array[String](["baterai"])
+hunger_change = 10
+stress_change = -15
+travel_change = 2.0
+outcome_text = "Sinar senter menembus kabut asap, membantumu melangkah jauh di malam hari!"
+
+[resource]
+script = ExtResource("2_hbpxj")
+event_id = "evt_m4_jalan_malam"
+event_type = 1
+allowed_session = 1
+story_text = "Jalur evakuasi malam ini gelap gulita tertutup kabut asap. Dengan penerangan yang cukup, kamu bisa menyicil jarak tempuh malam ini."
+item_choice_1 = SubResource("Resource_hbpxj")
+ignore_choice = SubResource("Resource_j0gr2")

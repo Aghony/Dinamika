@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://b3ci2dj20bngx"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_1rr1g"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_dkubi"]
+
+[sub_resource type="Resource" id="Resource_1rr1g"]
+script = ExtResource("1_1rr1g")
+choice_text = "Memutar jauh lewat jalur desa"
+hunger_change = 22
+stress_change = 15
+travel_change = -1.0
+outcome_text = "Tanpa dokumen, kamu terpaksa memutar jauh menguras tenaga dan perbekalan."
+
+[sub_resource type="Resource" id="Resource_dkubi"]
+script = ExtResource("1_1rr1g")
+choice_text = "Tunjukkan Dokumen"
+required_items = Array[String](["dokumen"])
+stress_change = -15
+travel_change = 2.5
+outcome_text = "Dokumen lengkap! Petugas membukakan jalur pintas prioritas menuju pengungsian."
+
+[resource]
+script = ExtResource("2_dkubi")
+event_id = "evt_p3_pos_periksa"
+event_type = 1
+allowed_session = 0
+story_text = "Petugas menjaga pos pemeriksaan menuju jalur evakuasi lintas cepat. Mereka meminta bukti identitas warga terdampak karhutla."
+item_choice_1 = SubResource("Resource_dkubi")
+ignore_choice = SubResource("Resource_1rr1g")

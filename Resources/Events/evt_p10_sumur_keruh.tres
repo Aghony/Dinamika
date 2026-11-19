@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://cdec7hxe8p04s"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_epwb6"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_fnt3d"]
+
+[sub_resource type="Resource" id="Resource_bu8h6"]
+script = ExtResource("1_epwb6")
+choice_text = "Minum air sumur keruh langsung"
+hunger_change = -5
+health_change = -28
+stress_change = 18
+outcome_text = "Air berabu membuat perutmu mual hebat dan tubuh lemas sepanjang siang."
+
+[sub_resource type="Resource" id="Resource_blymt"]
+script = ExtResource("1_epwb6")
+choice_text = "Minum persediaan Air Mineral"
+required_items = Array[String](["air_mineral"])
+consumed_items = Array[String](["air_mineral"])
+hunger_change = -15
+health_change = 15
+stress_change = -10
+outcome_text = "Kamu meminum air bersih dari tas tanpa mengambil risiko sakit perut."
+
+[sub_resource type="Resource" id="Resource_41nr5"]
+script = ExtResource("1_epwb6")
+choice_text = "Saring air pakai Masker"
+required_items = Array[String](["masker"])
+consumed_items = Array[String](["masker"])
+hunger_change = -10
+stress_change = -8
+outcome_text = "Masker menyaring abu kasar sehingga air cukup aman untuk membasuh wajah dan tenggorokan."
+
+[resource]
+script = ExtResource("2_fnt3d")
+event_id = "evt_p10_sumur_keruh"
+event_type = 1
+allowed_session = 0
+story_text = "Menemukan sumur warga di pinggir jalan yang airnya keruh bercampur abu kebakaran."
+item_choice_1 = SubResource("Resource_blymt")
+item_choice_2 = SubResource("Resource_41nr5")
+ignore_choice = SubResource("Resource_bu8h6")

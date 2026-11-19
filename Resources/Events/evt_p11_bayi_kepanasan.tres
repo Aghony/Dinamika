@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://b4egjtn5lym8u"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_hrjr3"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_4ud82"]
+
+[sub_resource type="Resource" id="Resource_fujc1"]
+script = ExtResource("1_hrjr3")
+choice_text = "Terus berjalan tanpa pelindung"
+hunger_change = 15
+health_change = -12
+stress_change = 30
+travel_change = -0.5
+outcome_text = "Tangisan bayi yang kepanasan membuatmu sangat panik dan kelelahan."
+
+[sub_resource type="Resource" id="Resource_fbudv"]
+script = ExtResource("1_hrjr3")
+choice_text = "Beri Botol Susu"
+required_items = Array[String](["botol_susu"])
+required_companions = Array[String](["bayi"])
+consumed_items = Array[String](["botol_susu"])
+health_change = 10
+stress_change = -28
+outcome_text = "Bayimu minum dengan lahap dan kembali tertidur pulas di gendongan."
+
+[sub_resource type="Resource" id="Resource_88seg"]
+script = ExtResource("1_hrjr3")
+choice_text = "Teduhi memakai Payung"
+required_items = Array[String](["payung"])
+required_companions = Array[String](["bayi"])
+health_change = 5
+stress_change = -18
+outcome_text = "Payung menghalau sengatan matahari langsung sehingga bayimu lebih nyaman."
+
+[resource]
+script = ExtResource("2_4ud82")
+event_id = "evt_p11_bayi_kepanasan"
+event_type = 1
+allowed_session = 0
+required_companions = Array[String](["bayi"])
+story_text = "Terik matahari bercampur hawa panas kebakaran membuat bayimu dehidrasi dan menangis keras tanpa henti."
+item_choice_1 = SubResource("Resource_fbudv")
+item_choice_2 = SubResource("Resource_88seg")
+ignore_choice = SubResource("Resource_fujc1")

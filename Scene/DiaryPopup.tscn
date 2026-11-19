@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://edi205pp6fqq"]
 
 [ext_resource type="Script" uid="uid://dwo1s2gehbaif" path="res://Script/DiaryPopup.gd" id="1_frciw"]
+[ext_resource type="Texture2D" uid="uid://cvppvdk0s8cng" path="res://Assets/UI/Buku/book_bg.png" id="2_dc6cc"]
+[ext_resource type="Texture2D" uid="uid://djpnmrpbc4w83" path="res://Assets/UI/exite.png" id="3_x8ffe"]
+[ext_resource type="Texture2D" uid="uid://jphr176ehug4" path="res://Assets/UI/Next.png" id="4_x8ffe"]
 
 [node name="DiaryPopup" type="Control" unique_id=2017963503]
 layout_mode = 3
@@ -20,32 +23,80 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.39215687)
 
-[node name="BookPanel" type="Panel" parent="DimmerBackground" unique_id=518688141]
+[node name="BookContainer" type="TextureRect" parent="DimmerBackground" unique_id=1658354474]
 layout_mode = 0
-offset_left = 317.0
-offset_top = 28.0
-offset_right = 839.0
-offset_bottom = 647.0
+offset_left = 198.0
+offset_top = -80.0
+offset_right = 1478.0
+offset_bottom = 1200.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_dc6cc")
+stretch_mode = 3
 
-[node name="EventTitleLabel" type="Label" parent="DimmerBackground/BookPanel" unique_id=1505101958]
+[node name="DayTitleLabel" type="Label" parent="DimmerBackground/BookContainer" unique_id=1505101958]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 28.0
-offset_right = 515.0
-offset_bottom = 115.0
+offset_left = 393.3333
+offset_top = 286.66666
+offset_right = 902.3333
+offset_bottom = 373.66666
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 
-[node name="DiaryRichText" type="RichTextLabel" parent="DimmerBackground/BookPanel" unique_id=480147590]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 120.0
-offset_right = 506.0
-offset_bottom = 471.0
+[node name="PageNumberLabel" type="Label" parent="DimmerBackground/BookContainer" unique_id=1750672395]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -47.5
+offset_top = -268.33337
+offset_right = 47.5
+offset_bottom = -181.33337
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 
-[node name="CloseButton" type="Button" parent="DimmerBackground/BookPanel" unique_id=417225006]
+[node name="DiaryTextLabel" type="RichTextLabel" parent="DimmerBackground/BookContainer" unique_id=480147590]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -243.0
+offset_top = -175.5
+offset_right = 263.33325
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="CloseButton" type="Button" parent="DimmerBackground/BookContainer" unique_id=417225006]
 layout_mode = 0
-offset_left = 510.0
-offset_top = -29.0
-offset_right = 581.0
-offset_bottom = 36.0
+offset_left = 941.6666
+offset_top = 203.33331
+offset_right = 1449.6666
+offset_bottom = 711.3333
+scale = Vector2(0.2, 0.2)
 theme_override_font_sizes/font_size = 30
-text = "X"
+icon = ExtResource("3_x8ffe")
+
+[node name="PrevPageButton" type="TextureButton" parent="DimmerBackground/BookContainer" unique_id=474269577]
+layout_mode = 0
+offset_left = 491.66666
+offset_top = 1116.6665
+offset_right = 1779.6666
+offset_bottom = 2404.6665
+rotation = 3.1415927
+scale = Vector2(0.1, 0.1)
+texture_normal = ExtResource("4_x8ffe")
+
+[node name="NextPageButton" type="TextureButton" parent="DimmerBackground/BookContainer" unique_id=1196045627]
+layout_mode = 0
+offset_left = 821.6666
+offset_top = 988.3333
+offset_right = 2109.6665
+offset_bottom = 2276.3333
+scale = Vector2(0.1, 0.1)
+texture_normal = ExtResource("4_x8ffe")

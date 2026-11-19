@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://cqoi7ifsii0ma"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_amjg8"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_x45oo"]
+
+[sub_resource type="Resource" id="Resource_8cpoi"]
+script = ExtResource("1_amjg8")
+choice_text = "Tetap berjalan kaki di jalur aman"
+hunger_change = 15
+stress_change = -5
+outcome_text = "Kamu memilih berjalan kaki dengan ritme stabil demi keamanan bayi."
+
+[sub_resource type="Resource" id="Resource_nmcrn"]
+script = ExtResource("1_amjg8")
+choice_text = "Kejar & menumpang di bak truk"
+hunger_change = 15
+health_change = -20
+stress_change = 18
+travel_change = 2.5
+outcome_text = "Guncangan bak truk dan asap knalpot menyiksa tubuhmu, tapi jarak terpangkas jauh!"
+
+[resource]
+script = ExtResource("2_x45oo")
+event_id = "evt_p13_truk_logistik"
+allowed_session = 0
+story_text = "Truk bak terbuka melintas cepat menuju arah kota dengan bak penuh barang dan asap knalpot pekat."
+yes_choice = SubResource("Resource_nmcrn")
+no_choice = SubResource("Resource_8cpoi")

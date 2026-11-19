@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://bje7mr4p61drb"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_k5va2"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_prepf"]
+
+[sub_resource type="Resource" id="Resource_k5va2"]
+script = ExtResource("1_k5va2")
+choice_text = "Paksakan tidur menahan demam"
+hunger_change = 15
+health_change = -28
+stress_change = 15
+travel_change = -1.0
+outcome_text = "Demam tinggi menguras daya tahan tubuhmu dan melumpuhkan langkah esok hari."
+
+[sub_resource type="Resource" id="Resource_prepf"]
+script = ExtResource("1_k5va2")
+choice_text = "Minum Obat-obatan"
+required_items = Array[String](["obat_obatan"])
+consumed_items = Array[String](["obat_obatan"])
+health_change = 35
+stress_change = -15
+outcome_text = "Obat-obatan meredakan demammu sehingga tubuh kembali bugar saat bangun."
+
+[resource]
+script = ExtResource("2_prepf")
+event_id = "evt_m6_sakit_demam"
+event_type = 1
+allowed_session = 1
+story_text = "Kelelahan fisik dan paparan asap membuat suhu tubuhmu naik tinggi. Kepalamu terasa berputar hebat."
+item_choice_1 = SubResource("Resource_prepf")
+ignore_choice = SubResource("Resource_k5va2")

@@ -1,5 +1,6 @@
 extends Control
 
+@onready var title_label: Label = $DimmerBackground/GameOverPanel/TitleLabel
 @onready var reason_label: Label = $DimmerBackground/GameOverPanel/ReasonLabel
 @onready var summary_label: Label = $DimmerBackground/GameOverPanel/SummaryLabel
 @onready var restart_btn: Button = $DimmerBackground/GameOverPanel/RestartButton
@@ -12,9 +13,14 @@ func _ready() -> void:
 	menu_btn.pressed.connect(_on_menu_pressed)
 
 
-func show_game_over(reason_text: String) -> void:
-	reason_label.text = reason_text
-	summary_label.text = "Kamu bertahan selama %d ronde." % GameState.current_round
+func show_ending(is_win: bool, message_text: String) -> void:
+	title_label.text = "SELAMAT! TIBA DI PENGUNGSIAN" if is_win else "GAGAL EVAKUASI"
+	reason_label.text = message_text
+	summary_label.text = "Hari ke-%d | Jarak Tempuh: %.1f / %.1f poin" % [
+		GameState.current_round,
+		GameState.travel_points,
+		GameState.TARGET_TRAVEL_POINTS
+	]
 	show()
 
 

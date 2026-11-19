@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://w7os1c3p3vus"]
+
+[ext_resource type="Texture2D" uid="uid://tn384e0b0jfx" path="res://Assets/Items/botol_susu.png" id="1_0r2f7"]
+[ext_resource type="Script" uid="uid://c8g1s00g1il86" path="res://Script/Resources/ItemData.gd" id="2_eueny"]
+
+[resource]
+script = ExtResource("2_eueny")
+id = "botol_susu"
+display_name = "Botol Susu"
+icon = ExtResource("1_0r2f7")
+weight = 0.3
+metadata/_custom_type_script = "uid://c8g1s00g1il86"

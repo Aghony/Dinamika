@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://tv5fhmuh2q77"]
+
+[ext_resource type="Texture2D" uid="uid://naackwcufvvi" path="res://Assets/Items/perban_coklat.png" id="1_34nbp"]
+[ext_resource type="Script" uid="uid://c8g1s00g1il86" path="res://Script/Resources/ItemData.gd" id="2_qfpw6"]
+
+[resource]
+script = ExtResource("2_qfpw6")
+id = "perban_coklat"
+display_name = "Perban Coklat"
+icon = ExtResource("1_34nbp")
+weight = 0.25
+max_stack = 3
+metadata/_custom_type_script = "uid://c8g1s00g1il86"

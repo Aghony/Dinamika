@@ -4,23 +4,36 @@ signal stats_updated
 signal inventory_updated
 signal phase_changed(round_num: int, session: Session, phase: SessionPhase)
 signal game_over(reason: String)
+signal game_won(summary: String)
 
 enum Session { PAGI, MALAM }
-enum SessionPhase { MORNING_INTRO, MORNING_EVENT, NIGHT_EVENT }
+enum SessionPhase {
+	MORNING_INTRO,
+	MORNING_FREE,
+	MORNING_EVENT,
+	NIGHT_FREE,
+	NIGHT_EVENT
+}
 
-# --- 1. STATUS RONDE, SESI & FASE ---
+# --- KONSTANTA ATURAN KARHUTLA (7 HARI) ---
+const MAX_ROUNDS: int = 7
+const TARGET_TRAVEL_POINTS: float = 15.0
+const MAX_WEIGHT: float = 15.0
+const BABY_WEIGHT: float = 4.4
+
+# --- 1. STATUS RONDE, SESI & PERJALANAN ---
 var current_round: int = 1
 var current_session: Session = Session.PAGI
 var current_phase: SessionPhase = SessionPhase.MORNING_INTRO
+var travel_points: float = 0.0
 
 # --- 2. STATUS KARAKTER UTAMA (0 - 100) ---
 var health: int = 100
-var hunger: int = 20
+var hunger: int = 15
 var stress: int = 10
 
-# --- 3. KARAKTER PENDAMPING ---
+# --- 3. KARAKTER PENDAMPING (Bayi = 4.4 kg) ---
 var companions: Dictionary = {
-	"anak_kecil": true,
 	"bayi": true
 }
 
@@ -30,7 +43,7 @@ var event_database: Array[EventData] = []
 var used_event_ids: Array[String] = []
 
 var inventory: Array[Dictionary] = []
-var max_slots: int = 12
+var max_slots: int = 15
 
 # --- 5. CATATAN DIARY ---
 var diary_logs: Array[Dictionary] = []
@@ -38,6 +51,7 @@ var diary_logs: Array[Dictionary] = []
 
 func _ready() -> void:
 	_scan_resources_folder("res://Resources/")
+	print("[GameState] Item dimuat: ", item_database.size(), " | Event dimuat: ", event_database.size())
 
 
 func _scan_resources_folder(folder_path: String) -> void:
@@ -68,31 +82,84 @@ func _scan_resources_folder(folder_path: String) -> void:
 	dir.list_dir_end()
 
 
-# --- PAKET ITEM SIMULASI PROTOTIPE ---
+# Normalisasi ID item agar "baterai" dan "biskuit" selalu konsisten
+func _normalize_item_id(raw_id: String) -> String:
+	match raw_id:
+		"batre": return "baterai"
+		"biskuit_anak": return "biskuit"
+		_: return raw_id
+
+
+# --- PAKET SIMULASI AWAL (13 Item Final) ---
 func give_prototype_starting_items() -> void:
-	add_item("air_mineral", 2)
-	add_item("biskuit", 2)
-	add_item("botol_susu", 1)
-	add_item("baterai", 1)
-	add_item("senter", 1)
-	add_item("payung", 1)
-	add_item("masker", 1)
-	add_item("tongkat", 1)
+	add_item("air_mineral", 3)   # 1.50 kg
+	add_item("biskuit", 4)       # 1.00 kg
+	add_item("perban_coklat", 2) # 0.50 kg
+	add_item("masker", 3)        # 0.30 kg
+	add_item("payung", 1)        # 0.35 kg
+	add_item("obat_obatan", 1)   # 0.50 kg
+	add_item("tongkat", 1)       # 0.35 kg
+	add_item("dokumen", 1)       # 0.10 kg
+	add_item("senter", 1)        # 0.15 kg
+	add_item("baterai", 2)       # 0.20 kg
+	add_item("jaket", 1)         # 0.70 kg
+	add_item("botol_susu", 3)    # 0.30 kg
+	add_item("mainan_anak", 1)   # 0.30 kg
+
+
+# --- KALKULASI BERAT & KATEGORI TAS ---
+func get_total_weight() -> float:
+	var total: float = 0.0
+	if companions.get("bayi", false):
+		total += BABY_WEIGHT
+		
+	for slot in inventory:
+		var item_info := get_item_data(slot["id"])
+		if item_info != null:
+			total += item_info.weight * slot["quantity"]
+			
+	return snappedf(total, 0.01)
+
+
+func get_weight_category() -> int:
+	var w := get_total_weight()
+	if w < 4.0:
+		return 1
+	elif w <= 10.0:
+		return 2
+	else:
+		return 3
+
+
+func get_daily_travel_gain() -> float:
+	match get_weight_category():
+		1: return 2.5
+		2: return 2.0
+		_: return 1.0
 
 
 # --- MANAJEMEN INVENTORY ---
-func add_item(item_id: String, amount: int = 1) -> bool:
-	if not item_database.has(item_id):
+func add_item(raw_id: String, amount: int = 1, enforce_weight_limit: bool = true) -> bool:
+	var item_id := _normalize_item_id(raw_id)
+	var item_info := get_item_data(item_id)
+	if item_info == null:
 		push_warning("ID Item tidak terdaftar di database: " + item_id)
 		return false
 		
+	if enforce_weight_limit:
+		var added_weight := item_info.weight * amount
+		if snappedf(get_total_weight() + added_weight, 0.01) > MAX_WEIGHT:
+			return false
+			
 	for slot in inventory:
 		if slot["id"] == item_id:
+			if slot["quantity"] + amount > item_info.max_stack:
+				return false
 			slot["quantity"] += amount
 			inventory_updated.emit()
 			return true
 			
-	if inventory.size() < max_slots:
+	if inventory.size() < max_slots and amount <= item_info.max_stack:
 		inventory.append({"id": item_id, "quantity": amount})
 		inventory_updated.emit()
 		return true
@@ -100,7 +167,8 @@ func add_item(item_id: String, amount: int = 1) -> bool:
 	return false
 
 
-func remove_item(item_id: String, amount: int = 1) -> bool:
+func remove_item(raw_id: String, amount: int = 1) -> bool:
+	var item_id := _normalize_item_id(raw_id)
 	for i in range(inventory.size()):
 		if inventory[i]["id"] == item_id:
 			inventory[i]["quantity"] -= amount
@@ -111,14 +179,16 @@ func remove_item(item_id: String, amount: int = 1) -> bool:
 	return false
 
 
-func has_item(item_id: String, min_amount: int = 1) -> bool:
+func has_item(raw_id: String, min_amount: int = 1) -> bool:
+	var item_id := _normalize_item_id(raw_id)
 	for slot in inventory:
 		if slot["id"] == item_id and slot["quantity"] >= min_amount:
 			return true
 	return false
 
 
-func get_item_data(item_id: String) -> ItemData:
+func get_item_data(raw_id: String) -> ItemData:
+	var item_id := _normalize_item_id(raw_id)
 	return item_database.get(item_id, null)
 
 
@@ -176,14 +246,22 @@ func apply_choice_consequences(choice: EventChoice) -> void:
 		
 	modify_stats(choice.hunger_change, choice.health_change, choice.stress_change)
 	
+	if choice.travel_change != 0.0:
+		travel_points = maxf(0.0, snappedf(travel_points + choice.travel_change, 0.05))
+		
 	for lost_comp in choice.lost_companions:
 		if companions.has(lost_comp):
 			companions[lost_comp] = false
+			inventory_updated.emit()
 	for gained_comp in choice.gained_companions:
 		companions[gained_comp] = true
+		inventory_updated.emit()
 		
 	if choice.outcome_text != "":
 		add_diary_entry(choice.outcome_text)
+		
+	# Langsung cek apakah progres jalan sudah tembus 15.0 atau status kritis 0/100
+	_check_end_conditions()
 
 
 func modify_stats(d_hunger: int, d_health: int, d_stress: int) -> void:
@@ -195,7 +273,8 @@ func modify_stats(d_hunger: int, d_health: int, d_stress: int) -> void:
 
 # --- NARASI PEMBUKA HARI, DIARY & PERGANTIAN FASE ---
 func get_daily_intro_text() -> String:
-	var intro := "Hari ke-%d dimulai. Matahari mulai menyinari tempat berlindung. Kami harus memeriksa keadaan sekitar dan bertahan hidup hari ini." % current_round
+	var sisa_hari := MAX_ROUNDS - current_round + 1
+	var intro := "Hari ke-%d (Sisa %d hari menuju batas waktu). Jarak tempuh saat ini: %.1f / %.1f km. Langit memerah oleh asap karhutla." % [current_round, sisa_hari, travel_points, TARGET_TRAVEL_POINTS]
 	add_diary_entry(intro)
 	return intro
 
@@ -209,42 +288,60 @@ func add_diary_entry(entry_text: String) -> void:
 	})
 
 
-func _check_game_over() -> bool:
+func _check_end_conditions() -> bool:
 	if health <= 0:
-		game_over.emit("Kesehatanmu habis.")
+		game_over.emit("Tubuhmu ambruk akibat luka dan kelelahan di jalur evakuasi.")
 		return true
 	if hunger >= 100:
-		game_over.emit("Kamu kehabisan tenaga karena kelaparan.")
+		game_over.emit("Kamu kehabisan tenaga karena kelaparan ekstrem.")
 		return true
 	if stress >= 100:
-		game_over.emit("Tingkat stresmu mencapai batas maksimal.")
+		game_over.emit("Kepanikan dan kepulan asap membuatmu kehilangan kendali.")
+		return true
+	if travel_points >= TARGET_TRAVEL_POINTS:
+		game_won.emit("Selamat! Kamu dan bayimu berhasil tiba di pos pengungsian pada Hari ke-%d!" % current_round)
 		return true
 	return false
 
 
 func advance_session() -> void:
-	if _check_game_over():
+	if _check_end_conditions():
 		return
 		
-	if current_phase == SessionPhase.MORNING_INTRO:
-		# Selesai fase bebas persiapan pagi -> masuk ke Event Pagi (masih sesi Pagi)
+	if current_phase == SessionPhase.MORNING_FREE:
 		current_phase = SessionPhase.MORNING_EVENT
 		phase_changed.emit(current_round, current_session, current_phase)
 		
-	elif current_phase == SessionPhase.MORNING_EVENT:
-		# Selesai Event Pagi & fase bebas -> pindah ke Sesi Malam (Event Malam)
-		modify_stats(10, 0, 0)
-		if _check_game_over():
-			return
-		current_session = Session.MALAM
+	elif current_phase == SessionPhase.NIGHT_FREE:
 		current_phase = SessionPhase.NIGHT_EVENT
+		phase_changed.emit(current_round, current_session, current_phase)
+
+
+func on_popup_closed() -> void:
+	if _check_end_conditions():
+		return
+		
+	if current_phase == SessionPhase.MORNING_INTRO:
+		current_phase = SessionPhase.MORNING_FREE
+		phase_changed.emit(current_round, current_session, current_phase)
+		
+	elif current_phase == SessionPhase.MORNING_EVENT:
+		# Tidak ada lagi penambahan lapar pasif; langsung lanjut ke Bebas Malam
+		current_session = Session.MALAM
+		current_phase = SessionPhase.NIGHT_FREE
 		phase_changed.emit(current_round, current_session, current_phase)
 		
 	elif current_phase == SessionPhase.NIGHT_EVENT:
-		# Selesai Event Malam & fase bebas -> naik ke Ronde berikutnya (Narasi Pagi)
-		modify_stats(10, 0, 0)
-		if _check_game_over():
+		# Tidak ada lagi penambahan lapar/stres pasif; hanya tambah jarak jalan harian
+		travel_points = snappedf(travel_points + get_daily_travel_gain(), 0.05)
+		
+		if _check_end_conditions():
 			return
+			
+		if current_round >= MAX_ROUNDS:
+			game_over.emit("Waktu habis! Api karhutla mengepung jalur evakuasi sebelum kamu sampai ke pengungsian.")
+			return
+			
 		current_session = Session.PAGI
 		current_round += 1
 		current_phase = SessionPhase.MORNING_INTRO
@@ -255,10 +352,11 @@ func reset_game() -> void:
 	current_round = 1
 	current_session = Session.PAGI
 	current_phase = SessionPhase.MORNING_INTRO
+	travel_points = 0.0
 	health = 100
-	hunger = 10
+	hunger = 15
 	stress = 10
-	companions = {"anak_kecil": true, "bayi": true}
+	companions = {"bayi": true}
 	inventory.clear()
 	diary_logs.clear()
 	used_event_ids.clear()

@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://c4jx5sidaq8u1"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_or8et"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_otixn"]
+
+[sub_resource type="Resource" id="Resource_or8et"]
+script = ExtResource("1_or8et")
+choice_text = "Bujuk perlahan tanpa alat"
+hunger_change = 15
+stress_change = 28
+outcome_text = "Bayi terus menjerit ketakutan sepanjang malam hingga mentalmu terkuras."
+
+[sub_resource type="Resource" id="Resource_otixn"]
+script = ExtResource("1_or8et")
+choice_text = "Hibur dengan Mainan Anak"
+required_items = Array[String](["mainan_anak"])
+required_companions = Array[String](["bayi"])
+stress_change = -22
+outcome_text = "Mainan anak mengalihkan perhatian bayimu hingga ia kembali tenang."
+
+[resource]
+script = ExtResource("2_otixn")
+event_id = "evt_m2_bayi_rewel"
+event_type = 1
+allowed_session = 1
+required_companions = Array[String](["bayi"])
+story_text = "Gemuruh pohon tumbang dan cahaya merah di kejauhan membuat bayimu ketakutan dan terus menjerit gelisah."
+item_choice_1 = SubResource("Resource_otixn")
+ignore_choice = SubResource("Resource_or8et")

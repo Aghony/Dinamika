@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://coel5whab48tl"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_0seww"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_iaqhs"]
+
+[sub_resource type="Resource" id="Resource_0seww"]
+script = ExtResource("1_0seww")
+choice_text = "Timang & tenangkan semalaman"
+hunger_change = 20
+health_change = -10
+stress_change = 30
+outcome_text = "Kamu begadang penuh kepanikan menenangkan tangisan bayi tanpa susu."
+
+[sub_resource type="Resource" id="Resource_iaqhs"]
+script = ExtResource("1_0seww")
+choice_text = "Beri Botol Susu"
+required_items = Array[String](["botol_susu"])
+required_companions = Array[String](["bayi"])
+consumed_items = Array[String](["botol_susu"])
+health_change = 10
+stress_change = -30
+outcome_text = "Bayimu langsung tenang setelah minum susu dan tidur nyenyak hingga pagi."
+
+[resource]
+script = ExtResource("2_iaqhs")
+event_id = "evt_m1_bayi_lapar"
+event_type = 1
+allowed_session = 1
+required_companions = Array[String](["bayi"])
+story_text = "Di tengah malam yang sunyi dan berbau asap, bayimu menangis kencang karena kelaparan."
+item_choice_1 = SubResource("Resource_iaqhs")
+ignore_choice = SubResource("Resource_0seww")

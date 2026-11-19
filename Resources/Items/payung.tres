@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://7jx1tgkw1t82"]
+
+[ext_resource type="Texture2D" uid="uid://cfqls1itsri2f" path="res://Assets/Items/payung.png" id="1_80vdn"]
+[ext_resource type="Script" uid="uid://c8g1s00g1il86" path="res://Script/Resources/ItemData.gd" id="2_oyf4k"]
+
+[resource]
+script = ExtResource("2_oyf4k")
+id = "payung"
+display_name = "Payung"
+icon = ExtResource("1_80vdn")
+is_consumable = false
+weight = 0.35
+metadata/_custom_type_script = "uid://c8g1s00g1il86"

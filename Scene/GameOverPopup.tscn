@@ -36,35 +36,37 @@ grow_vertical = 2
 
 [node name="TitleLabel" type="Label" parent="DimmerBackground/GameOverPanel" unique_id=553883125]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 18.0
-offset_right = 524.0
-offset_bottom = 118.0
+offset_left = 23.0
+offset_top = 33.0
+offset_right = 523.0
+offset_bottom = 213.0
+theme_override_font_sizes/font_size = 40
 
 [node name="ReasonLabel" type="Label" parent="DimmerBackground/GameOverPanel" unique_id=643071719]
 layout_mode = 0
-offset_left = 111.0
-offset_top = 154.0
-offset_right = 459.0
-offset_bottom = 201.0
+offset_left = 112.0
+offset_top = 201.0
+offset_right = 460.0
+offset_bottom = 333.0
+autowrap_mode = 2
 
 [node name="SummaryLabel" type="Label" parent="DimmerBackground/GameOverPanel" unique_id=1077580567]
 layout_mode = 0
-offset_left = 24.0
+offset_left = 46.0
 offset_top = 263.0
-offset_right = 497.0
+offset_right = 519.0
 offset_bottom = 385.0
 
 [node name="RestartButton" type="Button" parent="DimmerBackground/GameOverPanel" unique_id=2088270831]
 layout_mode = 0
-offset_left = 298.0
-offset_top = 418.0
-offset_right = 498.0
-offset_bottom = 518.0
+offset_left = 301.0
+offset_top = 422.0
+offset_right = 501.0
+offset_bottom = 522.0
 
 [node name="MainMenuButton" type="Button" parent="DimmerBackground/GameOverPanel" unique_id=98246602]
 layout_mode = 0
-offset_left = 28.0
-offset_top = 417.0
-offset_right = 228.0
-offset_bottom = 517.0
+offset_left = 60.0
+offset_top = 422.0
+offset_right = 260.0
+offset_bottom = 522.0

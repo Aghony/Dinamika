@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://c3hey7b0vody7"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_5rtc5"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_h22nh"]
+
+[sub_resource type="Resource" id="Resource_3mswu"]
+script = ExtResource("1_5rtc5")
+choice_text = "Tahan lapar hingga malam"
+hunger_change = 8
+stress_change = 10
+outcome_text = "Perut melilit kelaparan membuat fokusmu buyar sepanjang perjalanan."
+
+[sub_resource type="Resource" id="Resource_walg7"]
+script = ExtResource("1_5rtc5")
+choice_text = "Makan Biskuit Anak"
+required_items = Array[String](["biskuit_anak"])
+consumed_items = Array[String](["biskuit_anak"])
+hunger_change = -25
+stress_change = -5
+outcome_text = "Biskuit anak mengganjal rasa lapar dan mengembalikan tenagamu."
+
+[resource]
+script = ExtResource("2_h22nh")
+event_id = "evt_p6_lapar_siang"
+event_type = 1
+allowed_session = 0
+story_text = "Perutmu keroncongan hebat di tengah terik siang. Kamu butuh asupan kalori agar tetap kuat menggendong bayimu."
+item_choice_1 = SubResource("Resource_walg7")
+ignore_choice = SubResource("Resource_3mswu")

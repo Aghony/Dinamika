@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://5wuxkx1opw8c"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_n7qi0"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_qumr5"]
+
+[sub_resource type="Resource" id="Resource_n7qi0"]
+script = ExtResource("1_n7qi0")
+choice_text = "Paksakan berjalan tertatih"
+hunger_change = 12
+health_change = -20
+stress_change = 15
+travel_change = -1.0
+outcome_text = "Kram otot memaksamu berjalan lambat menahan nyeri luar biasa."
+
+[sub_resource type="Resource" id="Resource_qumr5"]
+script = ExtResource("1_n7qi0")
+choice_text = "Pasang Perban Coklat"
+required_items = Array[String](["perban_coklat"])
+consumed_items = Array[String](["perban_coklat"])
+health_change = 10
+travel_change = 1.5
+outcome_text = "Perban coklat menopang otot kakimu sehingga langkah kembali mantap dan cepat."
+
+[resource]
+script = ExtResource("2_qumr5")
+event_id = "evt_p5_kaki_pegal"
+event_type = 1
+allowed_session = 0
+story_text = "Beban gendongan dan jalan berbatu membuat otot betismu kram parah. Setiap langkah terasa menyiksa."
+item_choice_1 = SubResource("Resource_qumr5")
+ignore_choice = SubResource("Resource_n7qi0")

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://jypnr5qndjgm"]
+
+[ext_resource type="Texture2D" uid="uid://dpivec8ye1rpq" path="res://Assets/Items/tongkat.png" id="1_gws2c"]
+[ext_resource type="Script" uid="uid://c8g1s00g1il86" path="res://Script/Resources/ItemData.gd" id="2_v54ej"]
+
+[resource]
+script = ExtResource("2_v54ej")
+id = "tongkat"
+display_name = "Tongkat"
+icon = ExtResource("1_gws2c")
+is_consumable = false
+weight = 0.35
+metadata/_custom_type_script = "uid://c8g1s00g1il86"

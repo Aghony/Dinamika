@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://cbh10wemkgb1t"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_0hfil"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_4j0kd"]
+
+[sub_resource type="Resource" id="Resource_1k5lj"]
+script = ExtResource("1_0hfil")
+choice_text = "Lewat begitu saja tanpa melapor"
+hunger_change = 18
+stress_change = 15
+outcome_text = "Kamu melewatkan bantuan logistik dan harus menebak arah jalur sendiri."
+
+[sub_resource type="Resource" id="Resource_f3dta"]
+script = ExtResource("1_0hfil")
+choice_text = "Tunjukkan Dokumen Warga"
+required_items = Array[String](["dokumen"])
+hunger_change = -20
+health_change = 5
+stress_change = -15
+travel_change = 1.5
+outcome_text = "Relawan memberimu ransum darurat dan menunjukkan jalur tercepat!"
+
+[sub_resource type="Resource" id="Resource_st6sq"]
+script = ExtResource("1_0hfil")
+choice_text = "Bagikan Mainan Anak"
+required_items = Array[String](["mainan_anak"])
+stress_change = -25
+travel_change = 1.0
+outcome_text = "Anak-anak pengungsi ceria bermain, suasanamu ikut tenang dan relawan memberi petunjuk jalan."
+
+[resource]
+script = ExtResource("2_4j0kd")
+event_id = "evt_p9_posko_relawan"
+event_type = 1
+allowed_session = 0
+story_text = "Kamu berpapasan dengan posko relawan kecil yang membagi logistik dan rute darurat bagi warga terdampak."
+item_choice_1 = SubResource("Resource_f3dta")
+item_choice_2 = SubResource("Resource_st6sq")
+ignore_choice = SubResource("Resource_1k5lj")

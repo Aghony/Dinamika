@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bfoiqwf37wki1"]
+
+[ext_resource type="Texture2D" uid="uid://c3f7gy5vlc3bc" path="res://Assets/Items/masker.png" id="1_lfugf"]
+[ext_resource type="Script" uid="uid://c8g1s00g1il86" path="res://Script/Resources/ItemData.gd" id="2_aq1aa"]
+
+[resource]
+script = ExtResource("2_aq1aa")
+id = "masker"
+display_name = "Masker"
+icon = ExtResource("1_lfugf")
+weight = 0.1
+max_stack = 5
+metadata/_custom_type_script = "uid://c8g1s00g1il86"
