@@ -510,8 +510,58 @@ debug_color = Color(0.70196074, 0, 0.02233593, 0.41960785)
 position = Vector2(58, 294)
 
 [node name="ItemSpawner" parent="." unique_id=2128225164 instance=ExtResource("10_8srob")]
+position = Vector2(289, 248)
 room_name = "Yard"
 item_scene = ExtResource("11_xbpsf")
+spawn_count = 1
+
+[node name="ItemSpawner3" parent="." unique_id=337812872 instance=ExtResource("10_8srob")]
+position = Vector2(199, 482)
+room_name = "Yard"
+item_scene = ExtResource("11_xbpsf")
+spawn_count = 1
+
+[node name="ItemSpawner4" parent="." unique_id=696232306 instance=ExtResource("10_8srob")]
+position = Vector2(438, 388)
+room_name = "Yard"
+item_scene = ExtResource("11_xbpsf")
+spawn_count = 1
+
+[node name="ItemSpawner5" parent="." unique_id=1056952246 instance=ExtResource("10_8srob")]
+position = Vector2(439, 433)
+room_name = "Yard"
+item_scene = ExtResource("11_xbpsf")
+spawn_count = 1
+
+[node name="ItemSpawner6" parent="." unique_id=314462048 instance=ExtResource("10_8srob")]
+position = Vector2(194, 448)
+room_name = "Yard"
+item_scene = ExtResource("11_xbpsf")
+spawn_count = 1
+
+[node name="ItemSpawner7" parent="." unique_id=2035035954 instance=ExtResource("10_8srob")]
+position = Vector2(155, 466)
+room_name = "Yard"
+item_scene = ExtResource("11_xbpsf")
+spawn_count = 1
+
+[node name="ItemSpawner8" parent="." unique_id=1885306700 instance=ExtResource("10_8srob")]
+position = Vector2(831, 176)
+room_name = "Yard"
+item_scene = ExtResource("11_xbpsf")
+spawn_count = 1
+
+[node name="ItemSpawner9" parent="." unique_id=1147252352 instance=ExtResource("10_8srob")]
+position = Vector2(779, 142)
+room_name = "Yard"
+item_scene = ExtResource("11_xbpsf")
+spawn_count = 1
+
+[node name="ItemSpawner2" parent="." unique_id=1712186657 instance=ExtResource("10_8srob")]
+position = Vector2(292, 144)
+room_name = "Yard"
+item_scene = ExtResource("11_xbpsf")
+spawn_count = 1
 
 [connection signal="body_entered" from="Area2D" to="CharacterBody2D" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Area2D2" to="CharacterBody2D" method="_on_area_2d_2_body_entered"]

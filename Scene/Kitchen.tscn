@@ -21,6 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://vbhkii43da8p" path="res://Assets/Fase 1/Room/Kursi.png" id="18_1hymu"]
 [ext_resource type="PackedScene" uid="uid://d35kdwcx1cnt5" path="res://Scene/player.tscn" id="19_j18s4"]
 [ext_resource type="Script" uid="uid://dxsuu1a46ir18" path="res://Script/Door.gd" id="20_j18s4"]
+[ext_resource type="PackedScene" uid="uid://drgcm2uoxfw3j" path="res://Scene/ItemSpawner.tscn" id="22_qjhcl"]
+[ext_resource type="PackedScene" uid="uid://jqepry20mh82" path="res://Scene/Items.tscn" id="23_0m353"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72osg"]
 size = Vector2(138, 570)
@@ -250,5 +252,87 @@ target_spawn = "FromKitchen"
 position = Vector2(870, 624)
 shape = SubResource("RectangleShape2D_hq7qp")
 debug_color = Color(0.70196074, 0, 0.045427326, 0.41960785)
+
+[node name="ItemSpawner" parent="." unique_id=2128225164 instance=ExtResource("22_qjhcl")]
+position = Vector2(596, 367)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner2" parent="." unique_id=1414485036 instance=ExtResource("22_qjhcl")]
+position = Vector2(561, 428)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner3" parent="." unique_id=271270111 instance=ExtResource("22_qjhcl")]
+position = Vector2(514, 372)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner4" parent="." unique_id=228393492 instance=ExtResource("22_qjhcl")]
+position = Vector2(446, 429)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner5" parent="." unique_id=1141453668 instance=ExtResource("22_qjhcl")]
+position = Vector2(384, 382)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner6" parent="." unique_id=1455092082 instance=ExtResource("22_qjhcl")]
+position = Vector2(143, 404)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner7" parent="." unique_id=1122030208 instance=ExtResource("22_qjhcl")]
+position = Vector2(145, 343)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner8" parent="." unique_id=150567589 instance=ExtResource("22_qjhcl")]
+position = Vector2(141, 262)
+item_scene = ExtResource("23_0m353")
+spawn_count = 2
+
+[node name="ItemSpawner9" parent="." unique_id=95748416 instance=ExtResource("22_qjhcl")]
+position = Vector2(209, 184)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner10" parent="." unique_id=1756740983 instance=ExtResource("22_qjhcl")]
+position = Vector2(501, 99)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner11" parent="." unique_id=1415162999 instance=ExtResource("22_qjhcl")]
+position = Vector2(537, 95)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner12" parent="." unique_id=2044095906 instance=ExtResource("22_qjhcl")]
+position = Vector2(572, 101)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner13" parent="." unique_id=1489158620 instance=ExtResource("22_qjhcl")]
+position = Vector2(573, 133)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner14" parent="." unique_id=41129560 instance=ExtResource("22_qjhcl")]
+position = Vector2(540, 134)
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner15" parent="." unique_id=1856157105 instance=ExtResource("22_qjhcl")]
+position = Vector2(508.99994, 135.00002)
+rotation = -0.18991877
+item_scene = ExtResource("23_0m353")
+spawn_count = 1
+
+[node name="ItemSpawner16" parent="." unique_id=1193275398 instance=ExtResource("22_qjhcl")]
+position = Vector2(141.99998, 184.99998)
+rotation = -0.18991877
+item_scene = ExtResource("23_0m353")
+spawn_count = 3
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
