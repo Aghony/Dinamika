@@ -21,6 +21,7 @@ Items="*uid://d3xor31yelj23"
 Rooms="*uid://duy5g4umc413c"
 GameState="*uid://duww7muofjmwd"
 AudioManager="*uid://dm2jwrdouqyrx"
+RoomTransition="*uid://dkp733uynjn4v"
 
 [display]
 

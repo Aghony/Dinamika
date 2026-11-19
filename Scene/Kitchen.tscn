@@ -1,0 +1,254 @@
+[gd_scene format=3 uid="uid://durq503w0ah26"]
+
+[ext_resource type="Texture2D" uid="uid://ctj0ee4yypc1f" path="res://Assets/Fase 1/Sekat Ruangan/Sekat Atas.png" id="1_0qdwy"]
+[ext_resource type="Texture2D" uid="uid://bbgs1kc4ifj8s" path="res://Assets/Fase 1/Sekat Ruangan/Sekat Horizontal.png" id="1_18cts"]
+[ext_resource type="Script" uid="uid://g0eg3u7glx4q" path="res://Script/Room.gd" id="1_72osg"]
+[ext_resource type="Texture2D" uid="uid://d3j5ef5a1l5i8" path="res://Assets/Fase 1/Sekat Ruangan/Sekat Vertical.png" id="2_1hymu"]
+[ext_resource type="Texture2D" uid="uid://bl2hmmloyd7qg" path="res://Assets/Fase 1/Dinding/Tak berjudul609_20261118010125.png" id="2_mmyu0"]
+[ext_resource type="Texture2D" uid="uid://bu2h3wvxb7m17" path="res://Assets/Fase 1/Dinding/DindingAtas.png" id="3_cgtp0"]
+[ext_resource type="Texture2D" uid="uid://bmixr4aoks52f" path="res://Assets/Fase 1/Sekat Ruangan/Sekat L.png" id="3_j18s4"]
+[ext_resource type="Texture2D" uid="uid://bwun2h72laj6q" path="res://Assets/Fase 1/Dinding/DindingSamping.png" id="7_72osg"]
+[ext_resource type="Texture2D" uid="uid://ccpx0ed5l8uv8" path="res://Assets/Fase 1/Dinding/Lantai.png" id="8_qjhcl"]
+[ext_resource type="Texture2D" uid="uid://brggxa85yykcx" path="res://Assets/Fase 1/Meja Dapur/pixil-frame-0 - 2026-11-17T055733.509.png" id="9_0m353"]
+[ext_resource type="Texture2D" uid="uid://k3t18p0ytn7v" path="res://Assets/Fase 1/Meja Dapur/pixil-frame-0 - 2026-11-17T055727.445.png" id="10_g77a4"]
+[ext_resource type="Texture2D" uid="uid://b02dfoiypunxc" path="res://Assets/Fase 1/Meja Dapur/pixil-frame-0 - 2026-11-17T055720.515.png" id="11_qhoyg"]
+[ext_resource type="Texture2D" uid="uid://ck4aqv23ucgqo" path="res://Assets/Fase 1/Meja Dapur/pixilart-drawing (72).png" id="12_wakcm"]
+[ext_resource type="Texture2D" uid="uid://h7y8uuvnxxre" path="res://Assets/Fase 1/Meja Dapur/pixil-frame-0 - 2026-11-14T184118.186.png" id="13_nfoo3"]
+[ext_resource type="Texture2D" uid="uid://d1vjp1frl33x1" path="res://Assets/Fase 1/Meja Dapur/pixil-frame-0 - 2026-11-14T184111.322.png" id="14_oh56g"]
+[ext_resource type="Texture2D" uid="uid://cunobpkvh7sdw" path="res://Assets/Fase 1/Meja/pixil-frame-0 - 2026-11-17T223754.828.png" id="15_wqar7"]
+[ext_resource type="Texture2D" uid="uid://dyo0uoqipdx3" path="res://Assets/Fase 1/Meja/pixil-frame-0 - 2026-11-17T223800.841.png" id="16_1edd0"]
+[ext_resource type="Texture2D" uid="uid://5vvlsv7p2w1l" path="res://Assets/Fase 1/Meja/pixil-frame-0 - 2026-11-17T223806.404.png" id="17_hq7qp"]
+[ext_resource type="Texture2D" uid="uid://vbhkii43da8p" path="res://Assets/Fase 1/Room/Kursi.png" id="18_1hymu"]
+[ext_resource type="PackedScene" uid="uid://d35kdwcx1cnt5" path="res://Scene/player.tscn" id="19_j18s4"]
+[ext_resource type="Script" uid="uid://dxsuu1a46ir18" path="res://Script/Door.gd" id="20_j18s4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72osg"]
+size = Vector2(138, 570)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qjhcl"]
+size = Vector2(972, 143)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1hymu"]
+size = Vector2(58, 661)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j18s4"]
+size = Vector2(863, 39)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhoyg"]
+size = Vector2(88, 35.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0m353"]
+size = Vector2(831, 77)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g77a4"]
+size = Vector2(166, 359.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wakcm"]
+size = Vector2(295, 113)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nfoo3"]
+size = Vector2(57.5, 68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oh56g"]
+size = Vector2(57, 67)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wqar7"]
+size = Vector2(54, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1edd0"]
+size = Vector2(56, 68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hq7qp"]
+size = Vector2(80, 44.5)
+
+[node name="Kitchen" type="Node2D" unique_id=1100981700]
+script = ExtResource("1_72osg")
+
+[node name="SekatHorizontal2" type="Sprite2D" parent="." unique_id=782886181]
+position = Vector2(412, 595)
+scale = Vector2(2.41, 1)
+texture = ExtResource("1_18cts")
+
+[node name="SekatVertical" type="Sprite2D" parent="." unique_id=1635086486]
+position = Vector2(16, 465.5)
+scale = Vector2(1, 1.0825)
+texture = ExtResource("2_1hymu")
+
+[node name="SekatHorizontal" type="Sprite2D" parent="." unique_id=1097130816]
+position = Vector2(567, 6)
+scale = Vector2(2.0075, 1)
+texture = ExtResource("1_18cts")
+
+[node name="SekatL" type="Sprite2D" parent="." unique_id=1037664769]
+position = Vector2(147, 131)
+texture = ExtResource("3_j18s4")
+
+[node name="SekatAtas" type="Sprite2D" parent="." unique_id=1388891752]
+position = Vector2(803, 291.5)
+scale = Vector2(1.0550001, 1.9825001)
+texture = ExtResource("1_0qdwy")
+
+[node name="TakBerjudul60920261118010125" type="Sprite2D" parent="." unique_id=1770714446]
+position = Vector2(126, 133)
+texture = ExtResource("2_mmyu0")
+
+[node name="DindingAtas" type="Sprite2D" parent="." unique_id=1953637567]
+position = Vector2(571, 77)
+scale = Vector2(3.6699998, 0.44000006)
+texture = ExtResource("3_cgtp0")
+
+[node name="DindingSamping" type="Sprite2D" parent="." unique_id=1992342856]
+position = Vector2(69, 417.5)
+scale = Vector2(0.43, 1.925)
+texture = ExtResource("7_72osg")
+
+[node name="Lantai" type="Sprite2D" parent="." unique_id=1758019402]
+position = Vector2(523.5, 365.5)
+scale = Vector2(4.1450005, 2.445)
+texture = ExtResource("8_qjhcl")
+
+[node name="PixilFrame020261117t055733_509" type="Sprite2D" parent="." unique_id=2143187022]
+position = Vector2(90.965805, 382)
+scale = Vector2(0.512315, 0.9537501)
+texture = ExtResource("9_0m353")
+offset = Vector2(76.28, -87.22)
+
+[node name="PixilFrame020261117t055727_445" type="Sprite2D" parent="." unique_id=1588161968]
+position = Vector2(135.27928, 321.87497)
+scale = Vector2(0.51248544, 1.5056249)
+texture = ExtResource("10_g77a4")
+offset = Vector2(-10.33, -68.485)
+
+[node name="PixilFrame020261117t055720_515" type="Sprite2D" parent="." unique_id=233237807]
+position = Vector2(130, 220)
+scale = Vector2(0.5125, 0.5125)
+texture = ExtResource("11_qhoyg")
+
+[node name="PixilartDrawing(72)" type="Sprite2D" parent="." unique_id=826817029]
+position = Vector2(321, 197)
+texture = ExtResource("12_wakcm")
+offset = Vector2(0, 2.01)
+
+[node name="PixilFrame020261114t184118_186" type="Sprite2D" parent="." unique_id=441570487]
+position = Vector2(738.50385, 179.30476)
+scale = Vector2(0.74751925, 0.7925)
+texture = ExtResource("13_nfoo3")
+offset = Vector2(0, 1.765)
+
+[node name="PixilFrame020261114t184111_322" type="Sprite2D" parent="." unique_id=1203620617]
+position = Vector2(502.00003, 182.00002)
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("14_oh56g")
+offset = Vector2(-5.75, -2.085)
+
+[node name="PixilFrame020261117t223754_828" type="Sprite2D" parent="." unique_id=1041825191]
+position = Vector2(476.9648, 371.07843)
+scale = Vector2(0.83168656, 0.83168656)
+texture = ExtResource("15_wqar7")
+offset = Vector2(5.565, 33.575)
+
+[node name="PixilFrame020261117t223800_841" type="Sprite2D" parent="." unique_id=1992854247]
+position = Vector2(458.4894, 370.82938)
+scale = Vector2(0.8300001, 0.8300001)
+texture = ExtResource("16_1edd0")
+offset = Vector2(1.82, 33.955)
+
+[node name="PixilFrame020261117t223806_404" type="Sprite2D" parent="." unique_id=105161677]
+position = Vector2(492.18002, 399.01505)
+scale = Vector2(0.83, 0.83)
+texture = ExtResource("17_hq7qp")
+
+[node name="PixilFrame020261114t231438_956" type="Sprite2D" parent="." unique_id=1967349029]
+position = Vector2(557, 493.99997)
+scale = Vector2(0.45312503, 0.45312503)
+texture = ExtResource("18_1hymu")
+flip_v = true
+
+[node name="PixilFrame020261114t231438_957" type="Sprite2D" parent="." unique_id=1345478876]
+position = Vector2(411.99997, 489.99997)
+scale = Vector2(0.45312503, 0.45312503)
+texture = ExtResource("18_1hymu")
+flip_v = true
+
+[node name="PixilFrame020261114t231438_958" type="Sprite2D" parent="." unique_id=2087427349]
+position = Vector2(411, 303.99997)
+scale = Vector2(0.45312503, 0.45312503)
+texture = ExtResource("18_1hymu")
+
+[node name="PixilFrame020261114t231438_959" type="Sprite2D" parent="." unique_id=689071602]
+position = Vector2(545, 301)
+scale = Vector2(0.45312503, 0.45312503)
+texture = ExtResource("18_1hymu")
+
+[node name="WallCollision" type="StaticBody2D" parent="." unique_id=1374430103]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision" unique_id=1780501030]
+position = Vector2(36, 319)
+shape = SubResource("RectangleShape2D_72osg")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WallCollision" unique_id=1964285810]
+position = Vector2(452, 45.5)
+shape = SubResource("RectangleShape2D_qjhcl")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WallCollision" unique_id=757595886]
+position = Vector2(969, 309.5)
+shape = SubResource("RectangleShape2D_1hymu")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="WallCollision" unique_id=465594242]
+position = Vector2(397.5, 626.5)
+shape = SubResource("RectangleShape2D_j18s4")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="WallCollision" unique_id=1230763389]
+position = Vector2(951, 626.75)
+shape = SubResource("RectangleShape2D_qhoyg")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2073636612]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2004914105]
+position = Vector2(436.5, 157.5)
+shape = SubResource("RectangleShape2D_0m353")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=59091564]
+position = Vector2(106, 303.25)
+shape = SubResource("RectangleShape2D_g77a4")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1549079510]
+position = Vector2(471.5, 400.5)
+shape = SubResource("RectangleShape2D_wakcm")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=1343698041]
+position = Vector2(405.25, 293)
+shape = SubResource("RectangleShape2D_nfoo3")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" unique_id=155866128]
+position = Vector2(539, 291)
+shape = SubResource("RectangleShape2D_oh56g")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D" unique_id=395808761]
+position = Vector2(551, 505)
+shape = SubResource("RectangleShape2D_wqar7")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D" unique_id=1991733544]
+position = Vector2(404, 501)
+shape = SubResource("RectangleShape2D_1edd0")
+
+[node name="FromFamilyRooms" type="Node2D" parent="." unique_id=404369063]
+position = Vector2(866, 589)
+
+[node name="Marker2D" type="Marker2D" parent="FromFamilyRooms" unique_id=1644274786]
+position = Vector2(3, 34)
+
+[node name="CharacterBody2D" parent="." unique_id=105894205 groups=["player"] instance=ExtResource("19_j18s4")]
+position = Vector2(825, 476)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=126939452]
+script = ExtResource("20_j18s4")
+next_room = "uid://s67bgarxc4bt"
+target_spawn = "FromKitchen"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1073062053]
+position = Vector2(870, 624)
+shape = SubResource("RectangleShape2D_hq7qp")
+debug_color = Color(0.70196074, 0, 0.045427326, 0.41960785)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
