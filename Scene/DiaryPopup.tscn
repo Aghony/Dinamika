@@ -24,11 +24,16 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.39215687)
 
 [node name="BookContainer" type="TextureRect" parent="DimmerBackground" unique_id=1658354474]
-layout_mode = 0
-offset_left = 198.0
-offset_top = -80.0
-offset_right = 1478.0
-offset_bottom = 1200.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 197.0
+offset_top = -99.00001
+offset_right = 325.0
+offset_bottom = 533.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_dc6cc")
 stretch_mode = 3

@@ -3,26 +3,35 @@
 [ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_yon0t"]
 [ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_nvr2t"]
 
-[sub_resource type="Resource" id="Resource_yon0t"]
+[sub_resource type="Resource" id="Resource_lml7f"]
 script = ExtResource("1_yon0t")
 choice_text = "Ambil jalan aspal yang aman"
-hunger_change = 10
-stress_change = -5
-outcome_text = "Kamu memilih jalur aspal yang aman demi keselamatan bayimu."
+hunger_change = 12
+health_change = -5
+stress_change = 6
+travel_change = -0.5
+heavy_load_extra_hunger = 5
+heavy_load_extra_stress = 5
+outcome_text = "Kamu memutar lewat jalur aspal yang lebih jauh demi keselamatan bayimu."
 
-[sub_resource type="Resource" id="Resource_nvr2t"]
+[sub_resource type="Resource" id="Resource_11jck"]
 script = ExtResource("1_yon0t")
 choice_text = "Terobos jalan pintas gambut"
-hunger_change = 15
+hunger_change = 18
 health_change = -24
-stress_change = 22
-travel_change = 2.5
-outcome_text = "Hawa panas tanah gambut membakar kakimu, namun jarak tempuh maju pesat!"
+stress_change = 24
+travel_change = 2.0
+random_items_lost = 1
+heavy_load_extra_hunger = 8
+heavy_load_extra_stress = 10
+heavy_load_extra_health = -6
+outcome_text = "Hawa panas tanah gambut membakar kakimu dan memaksamu membuang beban demi lolos!"
 
 [resource]
 script = ExtResource("2_nvr2t")
 event_id = "evt_p7_jalur_gambut"
 allowed_session = 0
-story_text = "Terlihat jalan pintas melewati lahan gambut kering yang mulai berasap tebal. Jarak ke pengungsian bisa terpangkas drastis."
-yes_choice = SubResource("Resource_nvr2t")
-no_choice = SubResource("Resource_yon0t")
+min_day = 3
+story_text = "Terlihat jalan pintas melewati lahan gambut kering yang mulai berasap tebal. Jarak ke pengungsian bisa terpangkas drastis, tapi tanahnya labil."
+yes_choice = SubResource("Resource_11jck")
+no_choice = SubResource("Resource_lml7f")

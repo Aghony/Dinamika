@@ -6,10 +6,13 @@
 [sub_resource type="Resource" id="Resource_s34os"]
 script = ExtResource("1_hvnls")
 choice_text = "Biarkan luka tanpa perawatan"
-hunger_change = 12
+hunger_change = 14
 health_change = -26
-stress_change = 18
+stress_change = 20
 travel_change = -0.5
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 8
+heavy_load_extra_health = -4
 outcome_text = "Infeksi menyebar membuat kakimu bengkak dan demam ringan."
 
 [sub_resource type="Resource" id="Resource_thkll"]
@@ -17,7 +20,8 @@ script = ExtResource("1_hvnls")
 choice_text = "Konsumsi Obat-obatan"
 required_items = Array[String](["obat_obatan"])
 consumed_items = Array[String](["obat_obatan"])
-health_change = 35
+hunger_change = 4
+health_change = 30
 stress_change = -10
 outcome_text = "Obat meredakan peradangan dengan cepat sehingga kakimu kembali ringan."
 
@@ -26,7 +30,8 @@ script = ExtResource("1_hvnls")
 choice_text = "Bersihkan & balut Perban Coklat"
 required_items = Array[String](["perban_coklat"])
 consumed_items = Array[String](["perban_coklat"])
-health_change = 20
+hunger_change = 4
+health_change = 18
 stress_change = -5
 travel_change = 0.5
 outcome_text = "Perban melindungi luka dari debu asap dan mengurangi rasa nyeri."
@@ -36,6 +41,7 @@ script = ExtResource("2_b4ea2")
 event_id = "evt_m10_luka_infeksi"
 event_type = 1
 allowed_session = 1
+min_day = 2
 story_text = "Luka gores di kakimu mulai berdenyut perih dan membengkak panas setelah seharian berjalan."
 item_choice_1 = SubResource("Resource_thkll")
 item_choice_2 = SubResource("Resource_v2jgs")

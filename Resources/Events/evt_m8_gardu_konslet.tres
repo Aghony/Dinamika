@@ -6,17 +6,24 @@
 [sub_resource type="Resource" id="Resource_lsguy"]
 script = ExtResource("1_a6glh")
 choice_text = "Menerobos dalam gelap gulita"
-hunger_change = 10
-health_change = -30
-stress_change = 25
-outcome_text = "Percikan listrik menyengat bahumu dan membuatmu terpental jatuh!"
+hunger_change = 14
+health_change = -28
+stress_change = 26
+travel_change = -0.5
+random_items_lost = 1
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 10
+heavy_load_extra_health = -5
+outcome_text = "Percikan listrik menyengat bahumu hingga terpental dan menjatuhkan barang!"
 
 [sub_resource type="Resource" id="Resource_s5k51"]
 script = ExtResource("1_a6glh")
 choice_text = "Singkirkan kabel pakai Tongkat"
 required_items = Array[String](["tongkat"])
-stress_change = -10
-travel_change = 1.5
+hunger_change = 6
+health_change = -4
+stress_change = -8
+travel_change = 1.0
 outcome_text = "Tongkat kayu kering menggeser kabel dengan aman tanpa setruman."
 
 [sub_resource type="Resource" id="Resource_yf46u"]
@@ -24,9 +31,9 @@ script = ExtResource("1_a6glh")
 choice_text = "Terangi jalur memutar pakai Senter"
 required_items = Array[String](["senter", "baterai"])
 consumed_items = Array[String](["baterai"])
-hunger_change = 10
-stress_change = -12
-travel_change = 1.5
+hunger_change = 12
+stress_change = -10
+travel_change = 1.0
 outcome_text = "Cahaya senter memandumu melewati jalur memutar tanpa menyentuh kabel."
 
 [resource]
@@ -34,6 +41,7 @@ script = ExtResource("2_pjugc")
 event_id = "evt_m8_gardu_konslet"
 event_type = 1
 allowed_session = 1
+min_day = 3
 story_text = "Kabel listrik tiang yang terbakar putus menjuntai dan memercikkan api di tengah jalan gelap."
 item_choice_1 = SubResource("Resource_s5k51")
 item_choice_2 = SubResource("Resource_yf46u")

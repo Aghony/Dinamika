@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c23llxt8o77r3"
+path="res://.godot/imported/Phase 2 BGM.mp3-1b5ecf591965534e240b5f60f6a9d941.mp3str"
+
+[deps]
+
+source_file="res://Assets/UI/SFX/Phase 2 BGM.mp3"
+dest_files=["res://.godot/imported/Phase 2 BGM.mp3-1b5ecf591965534e240b5f60f6a9d941.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

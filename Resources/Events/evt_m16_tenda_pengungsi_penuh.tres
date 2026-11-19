@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://pd8kwqc3m6aw"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_6q03s"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_624lp"]
+
+[sub_resource type="Resource" id="Resource_b8elf"]
+script = ExtResource("1_6q03s")
+choice_text = "Tidur berdesakan tanpa pengawasan"
+hunger_change = 16
+health_change = -12
+stress_change = 24
+random_items_lost = 1
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 8
+outcome_text = "Saat terlelap kelelahan, seseorang mengutil sebagian isi tasmu di tengah keramaian!"
+
+[sub_resource type="Resource" id="Resource_f57dl"]
+script = ExtResource("1_6q03s")
+choice_text = "Daftar resmi pakai Dokumen"
+required_items = Array[String](["dokumen"])
+hunger_change = -10
+health_change = 8
+stress_change = -14
+travel_change = 0.5
+outcome_text = "Petugas mencatat namamu dan memberi sudut aman beserta jatah makan malam."
+
+[sub_resource type="Resource" id="Resource_tlysy"]
+script = ExtResource("1_6q03s")
+choice_text = "Bagikan Air Mineral agar diberi ruang"
+required_items = Array[String](["air_mineral"])
+consumed_items = Array[String](["air_mineral"])
+hunger_change = 6
+health_change = 4
+stress_change = -10
+outcome_text = "Warga sekitar melunak dan memberimu ruang kecil untuk merebahkan badan."
+
+[resource]
+script = ExtResource("2_624lp")
+event_id = "evt_m16_tenda_pengungsi_penuh"
+event_type = 1
+allowed_session = 1
+min_day = 3
+story_text = "Kamu menemukan barak darurat penuh sesak warga panik yang saling berebut tempat tidur dan logistik."
+item_choice_1 = SubResource("Resource_f57dl")
+item_choice_2 = SubResource("Resource_tlysy")
+ignore_choice = SubResource("Resource_b8elf")

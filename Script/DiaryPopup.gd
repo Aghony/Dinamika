@@ -1,5 +1,6 @@
 extends Control
 
+@onready var dimmer_bg: Control = $DimmerBackground
 @onready var book_bg: TextureRect = $DimmerBackground/BookContainer
 @onready var day_title_label: Label = $DimmerBackground/BookContainer/DayTitleLabel
 @onready var page_num_label: Label = $DimmerBackground/BookContainer/PageNumberLabel
@@ -10,19 +11,22 @@ extends Control
 
 const BUKU_DIR := "res://Assets/UI/Buku/"
 
-# Menyimpan daftar halaman yang sudah dikelompokkan per hari: Array[Dictionary]
 var pages: Array[Dictionary] = []
 var current_page_index: int = 0
+var open_tween: Tween = null
+var base_scale: Vector2 = Vector2(0.6, 0.6)
 
 
 func _ready() -> void:
 	hide()
+	diary_text.bbcode_enabled = true
+	if book_bg != null:
+		base_scale = book_bg.scale
 	_load_book_assets()
 	
 	prev_btn.pressed.connect(_on_prev_pressed)
 	next_btn.pressed.connect(_on_next_pressed)
 	close_btn.pressed.connect(close_popup)
-	diary_text.bbcode_enabled = true
 
 
 func _load_book_assets() -> void:
@@ -34,18 +38,42 @@ func _load_book_assets() -> void:
 		next_btn.texture_normal = load(BUKU_DIR + "book_next.png")
 
 
-# Ubah fungsi open_popup() dan close_popup() di DiaryPopup.gd menjadi:
 func open_popup() -> void:
 	_build_pages_from_logs()
 	current_page_index = maxi(0, pages.size() - 1)
 	_render_current_page()
 	AudioManager.play_paper_turn()
-	show()
+	_play_open_animation()
 
 
 func close_popup() -> void:
+	if open_tween != null and open_tween.is_valid():
+		open_tween.kill()
+	if book_bg != null:
+		book_bg.scale = base_scale
+		book_bg.modulate.a = 1.0
 	AudioManager.play_paper_turn()
 	hide()
+
+
+func _play_open_animation() -> void:
+	if open_tween != null and open_tween.is_valid():
+		open_tween.kill()
+	show()
+	if book_bg == null:
+		return
+	await get_tree().process_frame
+	
+	# Pusatkan pivot ke tengah tekstur dan posisikan buku tepat di tengah layar
+	var parent_size: Vector2 = dimmer_bg.size if (dimmer_bg != null and dimmer_bg.size != Vector2.ZERO) else get_viewport_rect().size
+	book_bg.pivot_offset = book_bg.size * 0.5
+	book_bg.position = (parent_size - book_bg.size) * 0.5
+	
+	book_bg.scale = base_scale * 0.92
+	book_bg.modulate.a = 0.0
+	open_tween = create_tween().set_parallel(true)
+	open_tween.tween_property(book_bg, "scale", base_scale, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	open_tween.tween_property(book_bg, "modulate:a", 1.0, 0.18)
 
 
 func _build_pages_from_logs() -> void:
@@ -88,7 +116,6 @@ func _render_current_page() -> void:
 	diary_text.text = page_data["body"]
 	page_num_label.text = "Halaman %d / %d" % [current_page_index + 1, pages.size()]
 	
-	# Atur status aktif & transparansi tombol navigasi halaman
 	var has_prev: bool = current_page_index > 0
 	var has_next: bool = current_page_index < (pages.size() - 1)
 	

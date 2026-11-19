@@ -6,18 +6,23 @@
 [sub_resource type="Resource" id="Resource_w8uyc"]
 script = ExtResource("1_hy2mu")
 choice_text = "Seberangi terburu-buru tanpa alat"
-hunger_change = 12
-health_change = -25
-stress_change = 20
+hunger_change = 15
+health_change = -24
+stress_change = 22
 travel_change = -0.5
-outcome_text = "Papan jembatan patah! Kakimu terperosok dan terluka cukup dalam."
+random_items_lost = 2
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 10
+heavy_load_extra_health = -5
+outcome_text = "Papan jembatan patah! Kakimu terperosok dan sebagian barang jatuh ke parit gambut!"
 
 [sub_resource type="Resource" id="Resource_dx0jv"]
 script = ExtResource("1_hy2mu")
 choice_text = "Topang pakai Tongkat"
 required_items = Array[String](["tongkat"])
-stress_change = -10
-travel_change = 1.5
+hunger_change = 5
+stress_change = -8
+travel_change = 1.0
 outcome_text = "Tongkat kayu membantumu menjaga keseimbangan hingga menyeberang dengan selamat."
 
 [sub_resource type="Resource" id="Resource_0c7t3"]
@@ -25,9 +30,10 @@ script = ExtResource("1_hy2mu")
 choice_text = "Balut pegangan pakai Perban"
 required_items = Array[String](["perban_coklat"])
 consumed_items = Array[String](["perban_coklat"])
-health_change = 8
+hunger_change = 6
+health_change = 5
 stress_change = -5
-travel_change = 1.0
+travel_change = 0.5
 outcome_text = "Perban melindungi tanganmu dari serpihan kayu tajam jembatan."
 
 [resource]
@@ -35,6 +41,7 @@ script = ExtResource("2_qte0l")
 event_id = "evt_p8_jembatan_lapuk"
 event_type = 1
 allowed_session = 0
+min_day = 2
 story_text = "Jembatan kayu di atas parit gambut mulai rapuh dan berderit keras saat dipijak."
 item_choice_1 = SubResource("Resource_dx0jv")
 item_choice_2 = SubResource("Resource_0c7t3")

@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://dmfngm0mvxyoc"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_5cwsn"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_mqax0"]
+
+[sub_resource type="Resource" id="Resource_mx7ql"]
+script = ExtResource("1_5cwsn")
+choice_text = "Tolak & simpan untuk diri sendiri"
+hunger_change = 14
+health_change = -5
+stress_change = 20
+heavy_load_extra_hunger = 4
+heavy_load_extra_stress = 6
+outcome_text = "Kamu berjalan pergi di tengah tatapan putus asa para korban yang terluka."
+
+[sub_resource type="Resource" id="Resource_fivv4"]
+script = ExtResource("1_5cwsn")
+choice_text = "Sumbangkan Obat-obatan"
+required_items = Array[String](["obat_obatan"])
+consumed_items = Array[String](["obat_obatan"])
+hunger_change = -10
+health_change = 5
+stress_change = -20
+travel_change = 1.5
+outcome_text = "Petugas sangat berterima kasih, memberimu makanan hangat dan peta jalur pintas aman!"
+
+[sub_resource type="Resource" id="Resource_2v87e"]
+script = ExtResource("1_5cwsn")
+choice_text = "Berikan Perban Coklat"
+required_items = Array[String](["perban_coklat"])
+consumed_items = Array[String](["perban_coklat"])
+hunger_change = -5
+health_change = 5
+stress_change = -14
+travel_change = 1.0
+outcome_text = "Petugas membalas bantuanmu dengan petunjuk arah bebas asap sejauh 1 km."
+
+[resource]
+script = ExtResource("2_mqax0")
+event_id = "evt_p17_pos_kesehatan"
+event_type = 1
+allowed_session = 0
+min_day = 2
+max_day = 6
+story_text = "Petugas medis lapangan kewalahan merawat korban luka bakar ringan dan memohon bantuan logistik medis."
+item_choice_1 = SubResource("Resource_fivv4")
+item_choice_2 = SubResource("Resource_2v87e")
+ignore_choice = SubResource("Resource_mx7ql")

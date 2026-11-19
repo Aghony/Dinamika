@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://ns6wjnmyb2nm"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_8op0m"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_gy2mt"]
+
+[sub_resource type="Resource" id="Resource_6ufhc"]
+script = ExtResource("1_8op0m")
+choice_text = "Tiarap berlindung di parit kering"
+hunger_change = 16
+health_change = -16
+stress_change = 22
+travel_change = -1.0
+random_items_lost = 1
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 8
+heavy_load_extra_health = -4
+outcome_text = "Kamu selamat dari pusaran bara, namun asap pekat mencekik dan satu barang tertinggal."
+
+[sub_resource type="Resource" id="Resource_34kqa"]
+script = ExtResource("1_8op0m")
+choice_text = "Lari menyamping menerjang hujan bara"
+hunger_change = 20
+health_change = -26
+stress_change = 26
+travel_change = 1.5
+random_items_lost = 2
+heavy_load_extra_hunger = 10
+heavy_load_extra_stress = 12
+heavy_load_extra_health = -6
+outcome_text = "Bara api membakar punggungmu dan beberapa barang terjatuh saat kamu berlari membabi buta!"
+
+[resource]
+script = ExtResource("2_gy2mt")
+event_id = "evt_p18_angin_puting_bara"
+allowed_session = 0
+min_day = 4
+story_text = "Angin kencang membentuk pusaran api dan hujan bara menyapu jalanan di depanmu secara tiba-tiba!"
+yes_choice = SubResource("Resource_34kqa")
+no_choice = SubResource("Resource_6ufhc")

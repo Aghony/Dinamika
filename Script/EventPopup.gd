@@ -252,7 +252,6 @@ func _on_continue_pressed() -> void:
 		else:
 			chosen = current_event.ignore_choice
 			
-		# Fallback jika event ITEM_CHOICE tidak memiliki resource ignore_choice
 		if chosen == null:
 			_show_outcome_panel("Kamu memilih mengabaikan situasi ini dan terus melangkah.")
 			return
@@ -275,7 +274,6 @@ func _execute_choice(chosen: EventChoice) -> void:
 		
 	GameState.apply_choice_consequences(chosen)
 	
-	# Hentikan jika konsekuensi pilihan langsung memicu Game Over / Menang
 	if not visible:
 		_stop_typing_and_audio()
 		return

@@ -3,20 +3,25 @@
 [ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_g3i0g"]
 [ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_ywtk1"]
 
-[sub_resource type="Resource" id="Resource_g3i0g"]
+[sub_resource type="Resource" id="Resource_iat8f"]
 script = ExtResource("1_g3i0g")
 choice_text = "Lari menerobos hujan abu"
-hunger_change = 12
-health_change = -22
-stress_change = 20
-outcome_text = "Percikan abu panas dan air keruh membuat bahumu melepuh perih."
+hunger_change = 15
+health_change = -20
+stress_change = 22
+random_items_lost = 1
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 6
+outcome_text = "Percikan abu panas membakar bahumu dan membuat satu barang terlepas saat berlari."
 
-[sub_resource type="Resource" id="Resource_ywtk1"]
+[sub_resource type="Resource" id="Resource_2ou84"]
 script = ExtResource("1_g3i0g")
 choice_text = "Buka Payung"
 required_items = Array[String](["payung"])
-stress_change = -10
-outcome_text = "Payung menahan hujan abu panas dan menjaga bayimu tetap kering."
+hunger_change = 5
+stress_change = -8
+travel_change = -0.5
+outcome_text = "Payung menahan hujan abu panas, meski langkahmu melambat menahan terpaan angin."
 
 [resource]
 script = ExtResource("2_ywtk1")
@@ -24,5 +29,5 @@ event_id = "evt_p2_hujan_abu"
 event_type = 1
 allowed_session = 0
 story_text = "Langit memerah gelap, disusul hujan abu panas dan gerimis keruh yang membasahi kain gendongan bayimu."
-item_choice_1 = SubResource("Resource_ywtk1")
-ignore_choice = SubResource("Resource_g3i0g")
+item_choice_1 = SubResource("Resource_2ou84")
+ignore_choice = SubResource("Resource_iat8f")

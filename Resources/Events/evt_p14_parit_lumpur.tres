@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://c6sg8nqlmg0nw"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_ye7yt"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_t43go"]
+
+[sub_resource type="Resource" id="Resource_p1ydd"]
+script = ExtResource("1_ye7yt")
+choice_text = "Menerjang lumpur tanpa alat bantu"
+hunger_change = 16
+health_change = -20
+stress_change = 22
+travel_change = -0.5
+random_items_lost = 1
+heavy_load_extra_hunger = 8
+heavy_load_extra_stress = 10
+heavy_load_extra_health = -5
+outcome_text = "Kakimu terhisap lumpur panas! Saat menarik diri, satu barang terlepas dari tas."
+
+[sub_resource type="Resource" id="Resource_r6c3i"]
+script = ExtResource("1_ye7yt")
+choice_text = "Ukur kedalaman pakai Tongkat"
+required_items = Array[String](["tongkat"])
+hunger_change = 6
+stress_change = -8
+travel_change = 1.0
+outcome_text = "Tongkat membantumu menemukan pijakan keras di tepi kubangan tanpa terperosok."
+
+[sub_resource type="Resource" id="Resource_vb70m"]
+script = ExtResource("1_ye7yt")
+choice_text = "Bilas kaki & tangan pakai Air Mineral"
+required_items = Array[String](["air_mineral"])
+consumed_items = Array[String](["air_mineral"])
+hunger_change = 4
+health_change = 8
+stress_change = -10
+travel_change = 0.5
+outcome_text = "Kamu menyeberang hati-hati lalu membilas lumpur panas agar kulit tidak melepuh."
+
+[resource]
+script = ExtResource("2_t43go")
+event_id = "evt_p14_parit_lumpur"
+event_type = 1
+allowed_session = 0
+min_day = 2
+story_text = "Jalan utama terputus kubangan lumpur gambut hangat yang dalam dan berbau belerang menyengat."
+item_choice_1 = SubResource("Resource_r6c3i")
+item_choice_2 = SubResource("Resource_vb70m")
+ignore_choice = SubResource("Resource_p1ydd")

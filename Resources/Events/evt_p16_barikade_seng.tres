@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://e63chao1ptw5"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_47tn4"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_s3u3c"]
+
+[sub_resource type="Resource" id="Resource_jf1a5"]
+script = ExtResource("1_47tn4")
+choice_text = "Singkirkan puing dengan tangan kosong"
+hunger_change = 16
+health_change = -26
+stress_change = 22
+travel_change = -0.5
+random_items_lost = 1
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 10
+heavy_load_extra_health = -5
+outcome_text = "Seng tajam menyayat lenganmu dan membuatmu menjatuhkan barang saat menghindar!"
+
+[sub_resource type="Resource" id="Resource_fyjvv"]
+script = ExtResource("1_47tn4")
+choice_text = "Ungkit puing memakai Tongkat"
+required_items = Array[String](["tongkat"])
+hunger_change = 8
+health_change = -4
+stress_change = -8
+travel_change = 1.0
+outcome_text = "Tongkat kayu cukup kuat menggeser seng panas sehingga kamu bisa melintas aman."
+
+[sub_resource type="Resource" id="Resource_p4ke4"]
+script = ExtResource("1_47tn4")
+choice_text = "Lilit tangan pakai Perban Coklat"
+required_items = Array[String](["perban_coklat"])
+consumed_items = Array[String](["perban_coklat"])
+hunger_change = 10
+stress_change = -6
+travel_change = 0.5
+outcome_text = "Lapisan perban melindungi telapak tanganmu saat mengangkat seng tajam."
+
+[resource]
+script = ExtResource("2_s3u3c")
+event_id = "evt_p16_barikade_seng"
+event_type = 1
+allowed_session = 0
+min_day = 3
+story_text = "Puing atap seng berkarat dan balok kayu terbakar runtuh menutup gang sempit satu-satunya."
+item_choice_1 = SubResource("Resource_fyjvv")
+item_choice_2 = SubResource("Resource_p4ke4")
+ignore_choice = SubResource("Resource_jf1a5")

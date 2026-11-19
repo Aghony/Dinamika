@@ -6,23 +6,31 @@
 [sub_resource type="Resource" id="Resource_8cpoi"]
 script = ExtResource("1_amjg8")
 choice_text = "Tetap berjalan kaki di jalur aman"
-hunger_change = 15
-stress_change = -5
+hunger_change = 16
+health_change = -5
+stress_change = 8
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 6
 outcome_text = "Kamu memilih berjalan kaki dengan ritme stabil demi keamanan bayi."
 
 [sub_resource type="Resource" id="Resource_nmcrn"]
 script = ExtResource("1_amjg8")
-choice_text = "Kejar & menumpang di bak truk"
-hunger_change = 15
-health_change = -20
-stress_change = 18
-travel_change = 2.5
-outcome_text = "Guncangan bak truk dan asap knalpot menyiksa tubuhmu, tapi jarak terpangkas jauh!"
+choice_text = "Kejar & naik paksa ke bak truk"
+hunger_change = 18
+health_change = -22
+stress_change = 20
+travel_change = 2.0
+random_items_lost = 2
+heavy_load_extra_hunger = 8
+heavy_load_extra_stress = 10
+heavy_load_extra_health = -6
+outcome_text = "Desak-desakan di bak truk menyiksa tubuhmu dan membuat barangmu terjatuh ke jalan!"
 
 [resource]
 script = ExtResource("2_x45oo")
 event_id = "evt_p13_truk_logistik"
 allowed_session = 0
-story_text = "Truk bak terbuka melintas cepat menuju arah kota dengan bak penuh barang dan asap knalpot pekat."
+min_day = 4
+story_text = "Truk bak terbuka melintas cepat menuju arah kota dengan bak penuh pengungsi panik dan asap knalpot pekat."
 yes_choice = SubResource("Resource_nmcrn")
 no_choice = SubResource("Resource_8cpoi")

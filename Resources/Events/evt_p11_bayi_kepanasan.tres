@@ -6,11 +6,14 @@
 [sub_resource type="Resource" id="Resource_fujc1"]
 script = ExtResource("1_hrjr3")
 choice_text = "Terus berjalan tanpa pelindung"
-hunger_change = 15
-health_change = -12
-stress_change = 30
+hunger_change = 18
+health_change = -14
+stress_change = 28
 travel_change = -0.5
-outcome_text = "Tangisan bayi yang kepanasan membuatmu sangat panik dan kelelahan."
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 10
+heavy_load_extra_health = -4
+outcome_text = "Tangisan bayi yang kepanasan membuatmu panik dan kelelahan luar biasa."
 
 [sub_resource type="Resource" id="Resource_fbudv"]
 script = ExtResource("1_hrjr3")
@@ -18,8 +21,9 @@ choice_text = "Beri Botol Susu"
 required_items = Array[String](["botol_susu"])
 required_companions = Array[String](["bayi"])
 consumed_items = Array[String](["botol_susu"])
-health_change = 10
-stress_change = -28
+hunger_change = 4
+health_change = 8
+stress_change = -24
 outcome_text = "Bayimu minum dengan lahap dan kembali tertidur pulas di gendongan."
 
 [sub_resource type="Resource" id="Resource_88seg"]
@@ -27,8 +31,10 @@ script = ExtResource("1_hrjr3")
 choice_text = "Teduhi memakai Payung"
 required_items = Array[String](["payung"])
 required_companions = Array[String](["bayi"])
-health_change = 5
-stress_change = -18
+hunger_change = 6
+health_change = 4
+stress_change = -14
+travel_change = -0.5
 outcome_text = "Payung menghalau sengatan matahari langsung sehingga bayimu lebih nyaman."
 
 [resource]
@@ -36,8 +42,8 @@ script = ExtResource("2_4ud82")
 event_id = "evt_p11_bayi_kepanasan"
 event_type = 1
 allowed_session = 0
-required_companions = Array[String](["bayi"])
 story_text = "Terik matahari bercampur hawa panas kebakaran membuat bayimu dehidrasi dan menangis keras tanpa henti."
+required_companions = Array[String](["bayi"])
 item_choice_1 = SubResource("Resource_fbudv")
 item_choice_2 = SubResource("Resource_88seg")
 ignore_choice = SubResource("Resource_fujc1")

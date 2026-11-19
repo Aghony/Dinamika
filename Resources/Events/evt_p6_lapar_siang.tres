@@ -6,24 +6,30 @@
 [sub_resource type="Resource" id="Resource_3mswu"]
 script = ExtResource("1_5rtc5")
 choice_text = "Tahan lapar hingga malam"
-hunger_change = 8
-stress_change = 10
-outcome_text = "Perut melilit kelaparan membuat fokusmu buyar sepanjang perjalanan."
+hunger_change = 28
+health_change = -12
+stress_change = 22
+travel_change = -0.5
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 8
+heavy_load_extra_health = -4
+outcome_text = "Perut melilit kelaparan membuat fokusmu buyar dan langkahmu goyah."
 
 [sub_resource type="Resource" id="Resource_walg7"]
 script = ExtResource("1_5rtc5")
-choice_text = "Makan Biskuit Anak"
-required_items = Array[String](["biskuit_anak"])
-consumed_items = Array[String](["biskuit_anak"])
-hunger_change = -25
-stress_change = -5
-outcome_text = "Biskuit anak mengganjal rasa lapar dan mengembalikan tenagamu."
+choice_text = "Makan Biskuit"
+required_items = Array[String](["biskuit"])
+consumed_items = Array[String](["biskuit"])
+hunger_change = -32
+health_change = 5
+stress_change = -10
+outcome_text = "Biskuit mengganjal rasa lapar dan mengembalikan tenagamu untuk menggendong bayi."
 
 [resource]
 script = ExtResource("2_h22nh")
 event_id = "evt_p6_lapar_siang"
 event_type = 1
 allowed_session = 0
-story_text = "Perutmu keroncongan hebat di tengah terik siang. Kamu butuh asupan kalori agar tetap kuat menggendong bayimu."
+story_text = "Tenagamu terkuras habis di tengah terik siang. Pandanganmu mulai berkunang-kunang karena perut kosong."
 item_choice_1 = SubResource("Resource_walg7")
 ignore_choice = SubResource("Resource_3mswu")
