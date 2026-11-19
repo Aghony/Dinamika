@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://dxsuu1a46ir18" path="res://Script/Door.gd" id="7_h658d"]
 [ext_resource type="Script" uid="uid://g0eg3u7glx4q" path="res://Script/Room.gd" id="8_66nnl"]
 [ext_resource type="Texture2D" uid="uid://bu2h3wvxb7m17" path="res://Assets/Fase 1/Dinding/DindingAtas.png" id="8_aysml"]
+[ext_resource type="PackedScene" uid="uid://drgcm2uoxfw3j" path="res://Scene/ItemSpawner.tscn" id="9_0heqp"]
+[ext_resource type="PackedScene" uid="uid://jqepry20mh82" path="res://Scene/Items.tscn" id="10_62sge"]
 [ext_resource type="PackedScene" uid="uid://d35kdwcx1cnt5" path="res://Scene/player.tscn" id="19_aw6sq"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nu6kt"]
@@ -268,7 +270,10 @@ position = Vector2(332.5, 144)
 shape = SubResource("RectangleShape2D_yt32n")
 
 [node name="CharacterBody2D" parent="." unique_id=105894205 groups=["player"] instance=ExtResource("19_aw6sq")]
-position = Vector2(627, 154)
+position = Vector2(655, 344)
+
+[node name="CharacterBody2D" parent="CharacterBody2D" unique_id=1809380815 groups=["player"] instance=ExtResource("19_aw6sq")]
+position = Vector2(655, 344)
 
 [node name="DoorToKitchen" type="Area2D" parent="." unique_id=1551120499]
 script = ExtResource("7_h658d")
@@ -283,6 +288,7 @@ debug_color = Color(0.14706233, 0.70196074, 0, 0.41960785)
 [node name="DoorToYard" type="Area2D" parent="." unique_id=2142851262]
 script = ExtResource("7_h658d")
 next_room = "uid://h80kxvoxlap0"
+target_spawn = "FromFamilyRoomsssssssssssssd"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorToYard" unique_id=742652646]
 position = Vector2(1088, 392)
@@ -295,7 +301,73 @@ debug_color = Color(0.70196074, 0, 0.06777196, 0.41960785)
 position = Vector2(678, 156)
 
 [node name="FromYard" type="Marker2D" parent="PointSpawn" unique_id=880591800]
-position = Vector2(977, 391)
+position = Vector2(993, 391)
+
+[node name="ItemSpawner" parent="." unique_id=2128225164 instance=ExtResource("9_0heqp")]
+position = Vector2(344, 326)
+room_name = "Family Room"
+item_scene = ExtResource("10_62sge")
+spawn_count = 1
+
+[node name="ItemSpawner9" parent="." unique_id=415667219 instance=ExtResource("9_0heqp")]
+position = Vector2(967, 172)
+room_name = "Family Room"
+item_scene = ExtResource("10_62sge")
+spawn_count = 1
+
+[node name="ItemSpawner10" parent="." unique_id=1025266838 instance=ExtResource("9_0heqp")]
+position = Vector2(998, 529)
+room_name = "Family Room"
+item_scene = ExtResource("10_62sge")
+spawn_count = 1
+
+[node name="ItemSpawner11" parent="." unique_id=1676739454 instance=ExtResource("9_0heqp")]
+position = Vector2(999, 561)
+room_name = "Family Room"
+item_scene = ExtResource("10_62sge")
+spawn_count = 1
+
+[node name="ItemSpawner2" parent="." unique_id=1305304757 instance=ExtResource("9_0heqp")]
+position = Vector2(365, 416)
+room_name = "Family Room"
+item_scene = ExtResource("10_62sge")
+spawn_count = 1
+
+[node name="ItemSpawner4" parent="." unique_id=1978098971 instance=ExtResource("9_0heqp")]
+position = Vector2(338, 416)
+room_name = "Family Room"
+item_scene = ExtResource("10_62sge")
+spawn_count = 1
+
+[node name="ItemSpawner5" parent="." unique_id=1428045384 instance=ExtResource("9_0heqp")]
+position = Vector2(352, 616)
+room_name = "Family Room"
+item_scene = ExtResource("10_62sge")
+spawn_count = 1
+
+[node name="ItemSpawner6" parent="." unique_id=512952833 instance=ExtResource("9_0heqp")]
+position = Vector2(467, 612)
+room_name = "Family Room"
+item_scene = ExtResource("10_62sge")
+spawn_count = 1
+
+[node name="ItemSpawner7" parent="." unique_id=177269624 instance=ExtResource("9_0heqp")]
+position = Vector2(495, 610)
+room_name = "Family Room"
+item_scene = ExtResource("10_62sge")
+spawn_count = 1
+
+[node name="ItemSpawner8" parent="." unique_id=18727825 instance=ExtResource("9_0heqp")]
+position = Vector2(502, 633)
+room_name = "Family Room"
+item_scene = ExtResource("10_62sge")
+spawn_count = 1
+
+[node name="ItemSpawner3" parent="." unique_id=1540685237 instance=ExtResource("9_0heqp")]
+position = Vector2(415, 174)
+room_name = "Family Room"
+item_scene = ExtResource("10_62sge")
+spawn_count = 1
 
 [connection signal="body_entered" from="DoorToKitchen" to="CharacterBody2D" method="_on_door_to_kitchen_body_entered"]
 [connection signal="body_entered" from="DoorToYard" to="CharacterBody2D" method="_on_door_to_yard_body_entered"]

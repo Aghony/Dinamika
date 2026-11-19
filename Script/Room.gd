@@ -1,8 +1,8 @@
 
 extends Node2D
 
-@onready var player: CharacterBody2D = $CharacterBody2D
-@onready var spawn_points: Node2D = $SpawnPoints
+@onready var player: CharacterBody2D = get_node_or_null("CharacterBody2D")
+@onready var spawn_points: Node2D = get_node_or_null("SpawnPoints")
 
 func _ready():
 	if player == null:
@@ -19,8 +19,9 @@ func _ready():
 
 	if spawn != null:
 		player.global_position = spawn.global_position
+		RoomTransition.target_spawn = ""
 	else:
 		push_error(
-            "Spawn point tidak ditemukan: "
+			"Spawn point tidak ditemukan: "
 			+ RoomTransition.target_spawn
 		)

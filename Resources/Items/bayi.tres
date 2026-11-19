@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bx6hf60bhy3in"]
+
+[ext_resource type="Texture2D" uid="uid://bpncq158v8yl4" path="res://Assets/Items/air_mineral.png" id="1_th65w"]
+[ext_resource type="Script" uid="uid://c8g1s00g1il86" path="res://Script/Resources/ItemData.gd" id="2_lcvt8"]
+
+[resource]
+script = ExtResource("2_lcvt8")
+id = "air_mineral"
+display_name = "Air Mineral"
+icon = ExtResource("1_th65w")
+max_stack = 10
+metadata/_custom_type_script = "uid://c8g1s00g1il86"
