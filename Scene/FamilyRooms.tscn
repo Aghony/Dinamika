@@ -72,7 +72,7 @@ load_path = "res://.godot/imported/TanamanAtas.png-0ae5fd534a43173be0b30c5055fbb
 size = Vector2(22, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_61ccs"]
-size = Vector2(189, 57.5)
+size = Vector2(189, 52.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_da0q5"]
 size = Vector2(213, 84.5)
@@ -238,7 +238,7 @@ position = Vector2(195, 171)
 shape = SubResource("RectangleShape2D_66nnl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FurnitureCollision" unique_id=1375029213]
-position = Vector2(337, 320)
+position = Vector2(337, 320.375)
 shape = SubResource("RectangleShape2D_61ccs")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="FurnitureCollision" unique_id=45848633]
@@ -270,10 +270,7 @@ position = Vector2(332.5, 144)
 shape = SubResource("RectangleShape2D_yt32n")
 
 [node name="CharacterBody2D" parent="." unique_id=105894205 groups=["player"] instance=ExtResource("19_aw6sq")]
-position = Vector2(655, 344)
-
-[node name="CharacterBody2D" parent="CharacterBody2D" unique_id=1809380815 groups=["player"] instance=ExtResource("19_aw6sq")]
-position = Vector2(655, 344)
+position = Vector2(738, 353)
 
 [node name="DoorToKitchen" type="Area2D" parent="." unique_id=1551120499]
 script = ExtResource("7_h658d")
@@ -304,13 +301,13 @@ position = Vector2(678, 156)
 position = Vector2(993, 391)
 
 [node name="ItemSpawner" parent="." unique_id=2128225164 instance=ExtResource("9_0heqp")]
-position = Vector2(344, 326)
+position = Vector2(336, 306)
 room_name = "Family Room"
 item_scene = ExtResource("10_62sge")
 spawn_count = 1
 
 [node name="ItemSpawner9" parent="." unique_id=415667219 instance=ExtResource("9_0heqp")]
-position = Vector2(967, 172)
+position = Vector2(944, 220)
 room_name = "Family Room"
 item_scene = ExtResource("10_62sge")
 spawn_count = 1
@@ -328,7 +325,7 @@ item_scene = ExtResource("10_62sge")
 spawn_count = 1
 
 [node name="ItemSpawner2" parent="." unique_id=1305304757 instance=ExtResource("9_0heqp")]
-position = Vector2(365, 416)
+position = Vector2(366, 416)
 room_name = "Family Room"
 item_scene = ExtResource("10_62sge")
 spawn_count = 1

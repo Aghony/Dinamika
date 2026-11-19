@@ -13,7 +13,7 @@ func _ready():
 
 func _on_play_pressed():
 	print("Game Dimulai")
-	# get_tree().change_scene_to_file("res://Scene/Level1.tscn")
+	 #get_tree().change_scene_to_file("res://Scene/Level1.tscn")
 
 
 func _on_setting_pressed():

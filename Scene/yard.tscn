@@ -484,7 +484,7 @@ position = Vector2(875.75, 430.5)
 shape = SubResource("RectangleShape2D_2lnoi")
 
 [node name="CharacterBody2D" parent="." unique_id=105894205 groups=["player"] instance=ExtResource("8_7bjto")]
-position = Vector2(30, 249)
+position = Vector2(161, 119)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1178627923]
 script = ExtResource("9_abuqu")

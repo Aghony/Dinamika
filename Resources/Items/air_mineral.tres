@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://gho75vxw8xka"]
 
-[ext_resource type="Texture2D" uid="uid://m5e1myqeacw1" path="res://Assets/Fase 1/Collectible/bayi.png" id="1_idwj6"]
+[ext_resource type="Texture2D" uid="uid://bpncq158v8yl4" path="res://Assets/Items/air_mineral.png" id="1_idwj6"]
 [ext_resource type="Script" uid="uid://c8g1s00g1il86" path="res://Script/Resources/ItemData.gd" id="2_6n6ym"]
 
 [resource]
