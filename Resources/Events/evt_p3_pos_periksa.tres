@@ -3,20 +3,25 @@
 [ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_1rr1g"]
 [ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_dkubi"]
 
-[sub_resource type="Resource" id="Resource_1rr1g"]
+[sub_resource type="Resource" id="Resource_i4oyu"]
 script = ExtResource("1_1rr1g")
 choice_text = "Memutar jauh lewat jalur desa"
 hunger_change = 22
-stress_change = 15
+health_change = -8
+stress_change = 18
 travel_change = -1.0
-outcome_text = "Tanpa dokumen, kamu terpaksa memutar jauh menguras tenaga dan perbekalan."
+heavy_load_extra_hunger = 8
+heavy_load_extra_stress = 8
+heavy_load_extra_health = -4
+outcome_text = "Tanpa dokumen, kamu terpaksa memutar jauh melewati semak berduri yang menguras tenaga."
 
-[sub_resource type="Resource" id="Resource_dkubi"]
+[sub_resource type="Resource" id="Resource_vortj"]
 script = ExtResource("1_1rr1g")
 choice_text = "Tunjukkan Dokumen"
 required_items = Array[String](["dokumen"])
-stress_change = -15
-travel_change = 2.5
+hunger_change = 5
+stress_change = -12
+travel_change = 2.0
 outcome_text = "Dokumen lengkap! Petugas membukakan jalur pintas prioritas menuju pengungsian."
 
 [resource]
@@ -24,6 +29,7 @@ script = ExtResource("2_dkubi")
 event_id = "evt_p3_pos_periksa"
 event_type = 1
 allowed_session = 0
+max_day = 5
 story_text = "Petugas menjaga pos pemeriksaan menuju jalur evakuasi lintas cepat. Mereka meminta bukti identitas warga terdampak karhutla."
-item_choice_1 = SubResource("Resource_dkubi")
-ignore_choice = SubResource("Resource_1rr1g")
+item_choice_1 = SubResource("Resource_vortj")
+ignore_choice = SubResource("Resource_i4oyu")

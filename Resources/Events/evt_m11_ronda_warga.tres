@@ -6,18 +6,23 @@
 [sub_resource type="Resource" id="Resource_3jw1s"]
 script = ExtResource("1_5ocjm")
 choice_text = "Diusir memutar keluar kampung"
-hunger_change = 20
-health_change = -10
-stress_change = 22
+hunger_change = 22
+health_change = -12
+stress_change = 24
 travel_change = -1.0
-outcome_text = "Kamu terpaksa berjalan memutar jauh di tengah malam dalam keadaan lapar."
+random_items_lost = 1
+heavy_load_extra_hunger = 8
+heavy_load_extra_stress = 8
+heavy_load_extra_health = -4
+outcome_text = "Kamu terpaksa berlari memutar jauh di tengah malam dan menjatuhkan barang saat dikejar."
 
 [sub_resource type="Resource" id="Resource_rkv8e"]
 script = ExtResource("1_5ocjm")
 choice_text = "Tunjukkan Dokumen Identitas"
 required_items = Array[String](["dokumen"])
-stress_change = -15
-travel_change = 2.0
+hunger_change = 4
+stress_change = -12
+travel_change = 1.5
 outcome_text = "Warga percaya dan mengantarmu melewati jalan pintas kampung!"
 
 [sub_resource type="Resource" id="Resource_o6330"]
@@ -25,8 +30,9 @@ script = ExtResource("1_5ocjm")
 choice_text = "Bagikan Biskuit sebagai itikad baik"
 required_items = Array[String](["biskuit"])
 consumed_items = Array[String](["biskuit"])
-stress_change = -12
-travel_change = 1.5
+hunger_change = 4
+stress_change = -10
+travel_change = 1.0
 outcome_text = "Warga melunak dan mempersilakanmu melintas dengan aman."
 
 [resource]
@@ -34,6 +40,7 @@ script = ExtResource("2_ycxl2")
 event_id = "evt_m11_ronda_warga"
 event_type = 1
 allowed_session = 1
+min_day = 2
 story_text = "Warga yang berjaga malam menghadang dengan pentungan karena mencurigai pendatang asing di kampung mereka."
 item_choice_1 = SubResource("Resource_rkv8e")
 item_choice_2 = SubResource("Resource_o6330")

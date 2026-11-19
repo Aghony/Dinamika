@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://dhxbrhevqxo85"]
+
+[ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_8s3yi"]
+[ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_bef7l"]
+
+[sub_resource type="Resource" id="Resource_ppogs"]
+script = ExtResource("1_8s3yi")
+choice_text = "Menyeberang meraba-raba dalam gelap"
+hunger_change = 16
+health_change = -20
+stress_change = 26
+travel_change = -1.0
+random_items_lost = 2
+heavy_load_extra_hunger = 8
+heavy_load_extra_stress = 10
+heavy_load_extra_health = -5
+outcome_text = "Kamu terpeleset hebat di tengah titian! Dua barang jatuh tenggelam ke sungai!"
+
+[sub_resource type="Resource" id="Resource_k6vjx"]
+script = ExtResource("1_8s3yi")
+choice_text = "Sorot pijakan pakai Senter + Baterai"
+required_items = Array[String](["senter", "baterai"])
+consumed_items = Array[String](["baterai"])
+hunger_change = 10
+stress_change = -10
+travel_change = 1.5
+outcome_text = "Cahaya senter memperlihatkan ruas bambu yang retak sehingga kamu melintas aman."
+
+[sub_resource type="Resource" id="Resource_b6kon"]
+script = ExtResource("1_8s3yi")
+choice_text = "Raba pijakan memakai Tongkat"
+required_items = Array[String](["tongkat"])
+hunger_change = 10
+health_change = -4
+stress_change = -6
+travel_change = 1.0
+outcome_text = "Tongkat membantumu menjaga titik berat badan hingga sampai ke seberang."
+
+[resource]
+script = ExtResource("2_bef7l")
+event_id = "evt_m15_jembatan_darurat_malam"
+event_type = 1
+allowed_session = 1
+min_day = 3
+story_text = "Satu-satunya jalur menuju desa seberang adalah titian bambu basah dan licin di atas aliran sungai gelap."
+item_choice_1 = SubResource("Resource_k6vjx")
+item_choice_2 = SubResource("Resource_b6kon")
+ignore_choice = SubResource("Resource_ppogs")

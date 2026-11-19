@@ -2,6 +2,7 @@ extends Node
 
 signal stats_updated
 signal inventory_updated
+signal item_lost_unintentionally(item_name: String, amount: int)
 signal phase_changed(round_num: int, session: Session, phase: SessionPhase)
 signal game_over(reason: String)
 signal game_won(summary: String)
@@ -44,6 +45,7 @@ var used_event_ids: Array[String] = []
 
 var inventory: Array[Dictionary] = []
 var max_slots: int = 15
+var last_lost_item_names: Array[String] = []
 
 # --- 5. CATATAN DIARY ---
 var diary_logs: Array[Dictionary] = []
@@ -90,7 +92,11 @@ func _normalize_item_id(raw_id: String) -> String:
 		_: return raw_id
 
 
-# --- PAKET SIMULASI AWAL (13 Item Final) ---
+# ==============================================================================
+# [UJI COBA / DEBUG] PAKET SIMULASI ITEM AWAL (13 Item)
+# Hanya digunakan untuk kebutuhan testing prototype.
+# Hapus fungsi ini beserta pemanggilannya di MainGate.gd saat rilis/produksi.
+# ==============================================================================
 func give_prototype_starting_items() -> void:
 	add_item("air_mineral", 3)   # 1.50 kg
 	add_item("biskuit", 4)       # 1.00 kg
@@ -192,6 +198,11 @@ func get_item_data(raw_id: String) -> ItemData:
 	return item_database.get(item_id, null)
 
 
+func _get_item_display_name(raw_id: String) -> String:
+	var info := get_item_data(raw_id)
+	return info.display_name if info != null and info.display_name != "" else raw_id
+
+
 # --- PEMILIHAN EVENT & SYARAT ---
 func get_random_event_for_current_session() -> EventData:
 	var target_session := EventData.SessionType.PAGI if current_session == Session.PAGI else EventData.SessionType.MALAM
@@ -200,14 +211,24 @@ func get_random_event_for_current_session() -> EventData:
 	for ev in event_database:
 		if ev.event_id in used_event_ids:
 			continue
+		if current_round < ev.min_day or current_round > ev.max_day:
+			continue
 		if ev.allowed_session != EventData.SessionType.KEDUANYA and ev.allowed_session != target_session:
 			continue
 		if not _has_required_companions(ev.required_companions):
 			continue
 		candidates.append(ev)
 		
+	# Cadangan 1: Reset riwayat event terpakai jika pool hari ini habis
 	if candidates.is_empty():
 		used_event_ids.clear()
+		for ev in event_database:
+			if current_round >= ev.min_day and current_round <= ev.max_day:
+				if (ev.allowed_session == EventData.SessionType.KEDUANYA or ev.allowed_session == target_session) and _has_required_companions(ev.required_companions):
+					candidates.append(ev)
+					
+	# Cadangan 2: Abaikan batas min_day/max_day jika masih kosong
+	if candidates.is_empty():
 		for ev in event_database:
 			if (ev.allowed_session == EventData.SessionType.KEDUANYA or ev.allowed_session == target_session) and _has_required_companions(ev.required_companions):
 				candidates.append(ev)
@@ -241,14 +262,44 @@ func can_select_choice(choice: EventChoice) -> bool:
 func apply_choice_consequences(choice: EventChoice) -> void:
 	if choice == null:
 		return
+		
+	last_lost_item_names.clear()
+	var is_heavy: bool = (get_weight_category() == 3)
+	
+	# 1. Konsumsi item yang sengaja dipakai untuk menyelesaikan event
 	for used_id in choice.consumed_items:
 		remove_item(used_id, 1)
 		
-	modify_stats(choice.hunger_change, choice.health_change, choice.stress_change)
+	# 2. Kehilangan item spesifik secara paksa
+	for spec_id in choice.specific_items_lost:
+		if has_item(spec_id, 1):
+			var disp := _get_item_display_name(spec_id)
+			remove_item(spec_id, 1)
+			last_lost_item_names.append(disp)
+			item_lost_unintentionally.emit(disp, 1)
+			
+	# 3. Kehilangan item acak dari dalam tas
+	for _i in range(choice.random_items_lost):
+		if inventory.is_empty():
+			break
+		var random_slot: Dictionary = inventory.pick_random()
+		var lost_id: String = random_slot["id"]
+		var disp_name := _get_item_display_name(lost_id)
+		remove_item(lost_id, 1)
+		last_lost_item_names.append(disp_name)
+		item_lost_unintentionally.emit(disp_name, 1)
+		
+	# 4. Hitung total perubahan status (termasuk penalti beban berat jika > 10.0 kg)
+	var d_hunger: int = choice.hunger_change + (choice.heavy_load_extra_hunger if is_heavy else 0)
+	var d_health: int = choice.health_change + (choice.heavy_load_extra_health if is_heavy else 0)
+	var d_stress: int = choice.stress_change + (choice.heavy_load_extra_stress if is_heavy else 0)
+	modify_stats(d_hunger, d_health, d_stress)
 	
+	# 5. Perubahan jarak tempuh
 	if choice.travel_change != 0.0:
 		travel_points = maxf(0.0, snappedf(travel_points + choice.travel_change, 0.05))
 		
+	# 6. Perubahan pendamping
 	for lost_comp in choice.lost_companions:
 		if companions.has(lost_comp):
 			companions[lost_comp] = false
@@ -257,24 +308,39 @@ func apply_choice_consequences(choice: EventChoice) -> void:
 		companions[gained_comp] = true
 		inventory_updated.emit()
 		
-	if choice.outcome_text != "":
-		add_diary_entry(choice.outcome_text)
+	# 7. Catat ke Diary (sertakan daftar barang yang hilang jika ada)
+	var log_text: String = choice.outcome_text
+	if not last_lost_item_names.is_empty():
+		var lost_summary := " [Barang hilang: %s]" % ", ".join(last_lost_item_names)
+		log_text += lost_summary
+	if log_text != "":
+		add_diary_entry(log_text)
 		
 	# Langsung cek apakah progres jalan sudah tembus 15.0 atau status kritis 0/100
 	_check_end_conditions()
 
 
 func modify_stats(d_hunger: int, d_health: int, d_stress: int) -> void:
+	var old_h := hunger
+	var old_hp := health
+	var old_s := stress
+	
 	hunger = clampi(hunger + d_hunger, 0, 100)
 	health = clampi(health + d_health, 0, 100)
 	stress = clampi(stress + d_stress, 0, 100)
-	stats_updated.emit()
+	
+	if hunger != old_h or health != old_hp or stress != old_s:
+		stats_updated.emit()
 
 
 # --- NARASI PEMBUKA HARI, DIARY & PERGANTIAN FASE ---
 func get_daily_intro_text() -> String:
 	var sisa_hari := MAX_ROUNDS - current_round + 1
-	var intro := "Hari ke-%d (Sisa %d hari menuju batas waktu). Jarak tempuh saat ini: %.1f / %.1f km. Langit memerah oleh asap karhutla." % [current_round, sisa_hari, travel_points, TARGET_TRAVEL_POINTS]
+	var kategori_list: Array[String] = ["Ringan", "Sedang", "Berat"]
+	var berat_kat: String = kategori_list[get_weight_category() - 1]
+	var intro := "Hari ke-%d (Sisa %d hari menuju batas waktu). Jarak tempuh: %.1f / %.1f km | Beban: %.2f kg (%s)." % [
+		current_round, sisa_hari, travel_points, TARGET_TRAVEL_POINTS, get_total_weight(), berat_kat
+	]
 	add_diary_entry(intro)
 	return intro
 
@@ -326,13 +392,11 @@ func on_popup_closed() -> void:
 		phase_changed.emit(current_round, current_session, current_phase)
 		
 	elif current_phase == SessionPhase.MORNING_EVENT:
-		# Tidak ada lagi penambahan lapar pasif; langsung lanjut ke Bebas Malam
 		current_session = Session.MALAM
 		current_phase = SessionPhase.NIGHT_FREE
 		phase_changed.emit(current_round, current_session, current_phase)
 		
 	elif current_phase == SessionPhase.NIGHT_EVENT:
-		# Tidak ada lagi penambahan lapar/stres pasif; hanya tambah jarak jalan harian
 		travel_points = snappedf(travel_points + get_daily_travel_gain(), 0.05)
 		
 		if _check_end_conditions():
@@ -340,6 +404,15 @@ func on_popup_closed() -> void:
 			
 		if current_round >= MAX_ROUNDS:
 			game_over.emit("Waktu habis! Api karhutla mengepung jalur evakuasi sebelum kamu sampai ke pengungsian.")
+			return
+			
+		# Kelelahan bermalam berdasarkan beban tas yang dibawa seharian
+		match get_weight_category():
+			1: modify_stats(6, 0, 3)    # Ringan (< 4.0 kg): hemat energi
+			2: modify_stats(9, 0, 6)    # Sedang (4.0 - 10.0 kg): kelelahan normal
+			3: modify_stats(15, -3, 12) # Berat (> 10.0 kg): menguras tenaga & melukai bahu
+			
+		if _check_end_conditions():
 			return
 			
 		current_session = Session.PAGI
@@ -360,3 +433,4 @@ func reset_game() -> void:
 	inventory.clear()
 	diary_logs.clear()
 	used_event_ids.clear()
+	last_lost_item_names.clear()

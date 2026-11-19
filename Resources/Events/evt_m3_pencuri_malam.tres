@@ -3,20 +3,27 @@
 [ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_s5j3l"]
 [ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_itte0"]
 
-[sub_resource type="Resource" id="Resource_s5j3l"]
+[sub_resource type="Resource" id="Resource_8ukth"]
 script = ExtResource("1_s5j3l")
 choice_text = "Bertahan dengan tangan kosong"
-hunger_change = 15
-health_change = -28
+hunger_change = 18
+health_change = -26
 stress_change = 28
-outcome_text = "Kamu berhasil mempertahankan tas, tetapi tubuhmu babak belur dipukuli."
+travel_change = -0.5
+random_items_lost = 2
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 10
+heavy_load_extra_health = -5
+outcome_text = "Kamu babak belur dipukuli dan mereka berhasil merampas sebagian isi tasmu!"
 
-[sub_resource type="Resource" id="Resource_itte0"]
+[sub_resource type="Resource" id="Resource_kamf2"]
 script = ExtResource("1_s5j3l")
 choice_text = "Halau dengan Tongkat"
 required_items = Array[String](["tongkat"])
-stress_change = -15
-travel_change = 1.0
+hunger_change = 8
+health_change = -5
+stress_change = -10
+travel_change = 0.5
 outcome_text = "Ayunan tongkatmu membuat para perampas itu mundur dan kabur ketakutan!"
 
 [resource]
@@ -24,6 +31,7 @@ script = ExtResource("2_itte0")
 event_id = "evt_m3_pencuri_malam"
 event_type = 1
 allowed_session = 1
+min_day = 3
 story_text = "Saat beristirahat di teras bangunan kosong, dua orang mengendap mendekat mencoba merampas tas perbekalanmu!"
-item_choice_1 = SubResource("Resource_itte0")
-ignore_choice = SubResource("Resource_s5j3l")
+item_choice_1 = SubResource("Resource_kamf2")
+ignore_choice = SubResource("Resource_8ukth")

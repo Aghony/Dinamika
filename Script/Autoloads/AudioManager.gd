@@ -2,37 +2,56 @@ extends Node
 
 const SFX_DIR := "res://Assets/Audios/"
 
+var bgm_player: AudioStreamPlayer
 var sfx_player: AudioStreamPlayer
 var writing_player: AudioStreamPlayer
 
+var stream_gameplay_bgm: AudioStream
 var stream_select: AudioStream
 var stream_paper_turn: AudioStream
 var stream_writing: AudioStream
+var stream_item_drop: AudioStream
+
+var bgm_tween: Tween = null
+var default_bgm_volume_db: float = -6.0
+
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
+	bgm_player = AudioStreamPlayer.new()
+	bgm_player.bus = "Music" if AudioServer.get_bus_index("Music") != -1 else "Master"
+	bgm_player.volume_db = default_bgm_volume_db
+	bgm_player.finished.connect(_on_bgm_finished)
+	add_child(bgm_player)
+	
 	sfx_player = AudioStreamPlayer.new()
-	sfx_player.bus = "Master"
+	sfx_player.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
 	add_child(sfx_player)
 	
 	writing_player = AudioStreamPlayer.new()
-	writing_player.bus = "Master"
+	writing_player.bus = "SFX" if AudioServer.get_bus_index("SFX") != -1 else "Master"
 	add_child(writing_player)
 	
-	_load_sfx_streams()
+	_load_audio_streams()
 	
 	get_tree().node_added.connect(_on_node_added)
 	_connect_buttons_recursive(get_tree().root)
 
 
-func _load_sfx_streams() -> void:
+func _load_audio_streams() -> void:
 	stream_select = _find_audio_file("select.wav")
 	stream_paper_turn = _find_audio_file("paper_turn.wav")
 	if stream_paper_turn == null:
 		stream_paper_turn = _find_audio_file("paper turn .wav")
 	stream_writing = _find_audio_file("writing.wav")
+	stream_item_drop = _find_audio_file("item_drop.wav")
+	
+	for bgm_name in ["bgm_gameplay.ogg", "bgm_gameplay.mp3", "bgm_gameplay.wav"]:
+		stream_gameplay_bgm = _find_audio_file(bgm_name)
+		if stream_gameplay_bgm != null:
+			break
 
 
 func _find_audio_file(file_name: String) -> AudioStream:
@@ -45,6 +64,50 @@ func _find_audio_file(file_name: String) -> AudioStream:
 	return null
 
 
+# --- KONTROL BGM ---
+func play_bgm(custom_stream: AudioStream = null, fade_duration: float = 0.8) -> void:
+	var target_stream: AudioStream = custom_stream if custom_stream != null else stream_gameplay_bgm
+	if target_stream == null:
+		return
+		
+	if bgm_player.stream == target_stream and bgm_player.playing:
+		return
+		
+	if "loop" in target_stream:
+		target_stream.loop = true
+		
+	if bgm_tween != null and bgm_tween.is_valid():
+		bgm_tween.kill()
+		
+	bgm_player.stream = target_stream
+	bgm_player.volume_db = -30.0 if fade_duration > 0.0 else default_bgm_volume_db
+	bgm_player.play()
+	
+	if fade_duration > 0.0:
+		bgm_tween = create_tween()
+		bgm_tween.tween_property(bgm_player, "volume_db", default_bgm_volume_db, fade_duration).set_trans(Tween.TRANS_SINE)
+
+
+func stop_bgm(fade_duration: float = 0.6) -> void:
+	if not bgm_player.playing:
+		return
+	if bgm_tween != null and bgm_tween.is_valid():
+		bgm_tween.kill()
+		
+	if fade_duration > 0.0:
+		bgm_tween = create_tween()
+		bgm_tween.tween_property(bgm_player, "volume_db", -35.0, fade_duration).set_trans(Tween.TRANS_SINE)
+		bgm_tween.tween_callback(bgm_player.stop)
+	else:
+		bgm_player.stop()
+
+
+func _on_bgm_finished() -> void:
+	if bgm_player.stream != null:
+		bgm_player.play()
+
+
+# --- KONEKSI OTOMATIS TOMBOL & SFX ---
 func _connect_buttons_recursive(node: Node) -> void:
 	_on_node_added(node)
 	for child in node.get_children():
@@ -57,7 +120,6 @@ func _on_node_added(node: Node) -> void:
 		if not btn.pressed.is_connected(_on_any_button_pressed.bind(btn)):
 			btn.pressed.connect(_on_any_button_pressed.bind(btn))
 			
-		# Animasi hover & press berbasis kecerahan (aman untuk semua ukuran & skala tombol)
 		if btn.name != "MainCharButton" and btn.name != "BackpackButton":
 			if not btn.mouse_entered.is_connected(_on_btn_hover.bind(btn, true)):
 				btn.mouse_entered.connect(_on_btn_hover.bind(btn, true))
@@ -124,3 +186,11 @@ func play_writing() -> void:
 func stop_writing() -> void:
 	if writing_player.playing:
 		writing_player.stop()
+
+
+func play_item_drop() -> void:
+	if stream_item_drop == null:
+		return
+	sfx_player.stream = stream_item_drop
+	sfx_player.pitch_scale = randf_range(0.92, 1.06)
+	sfx_player.play()

@@ -6,6 +6,7 @@ extends Control
 @export var tex_stress: Texture2D
 @export var tex_kritis: Texture2D
 
+@onready var status_panel: Control = $StatusPanel
 @onready var face_rect: TextureRect = $StatusPanel/FaceTextureRect
 @onready var health_label: Label = get_node_or_null("StatusPanel/HealthLabel")
 @onready var hunger_label: Label = get_node_or_null("StatusPanel/HungerLabel")
@@ -14,6 +15,8 @@ extends Control
 @onready var close_btn: Button = $StatusPanel/CloseButton
 
 const INDIKATOR_DIR := "res://Assets/UI/Indikator/"
+
+var open_tween: Tween = null
 
 
 func _ready() -> void:
@@ -37,11 +40,28 @@ func _load_default_faces() -> void:
 
 func open_popup() -> void:
 	_refresh_display()
-	show()
+	_play_open_animation()
 
 
 func close_popup() -> void:
+	if open_tween != null and open_tween.is_valid():
+		open_tween.kill()
 	hide()
+
+
+func _play_open_animation() -> void:
+	if open_tween != null and open_tween.is_valid():
+		open_tween.kill()
+	show()
+	if status_panel == null:
+		return
+	await get_tree().process_frame
+	status_panel.pivot_offset = status_panel.size * 0.5
+	status_panel.scale = Vector2(0.92, 0.92)
+	status_panel.modulate.a = 0.0
+	open_tween = create_tween().set_parallel(true)
+	open_tween.tween_property(status_panel, "scale", Vector2.ONE, 0.20).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	open_tween.tween_property(status_panel, "modulate:a", 1.0, 0.16)
 
 
 func _refresh_display() -> void:
@@ -59,10 +79,6 @@ func _refresh_display() -> void:
 		var has_baby: bool = GameState.companions.get("bayi", false)
 		companion_label.text = "Pendamping: Bayi" if has_baby else "Pendamping: Tidak ada"
 		
-	# Pemetaan wajah sesuai kondisi spesifik:
-	# - face_kritis: Kesehatan rendah (<= 40)
-	# - face_lapar: Kelaparan tinggi (>= 60)
-	# - face_stress: Stres tinggi (>= 60)
 	var chosen_face: Texture2D = tex_normal
 	
 	if hp <= 40:

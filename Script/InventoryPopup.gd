@@ -1,5 +1,6 @@
 extends Control
 
+@onready var inventory_panel: Control = $InventoryPanel
 @onready var empty_label: Label = $InventoryPanel/EmptyLabel
 @onready var prev_btn: Button = $InventoryPanel/PrevButton
 @onready var next_btn: Button = $InventoryPanel/NextButton
@@ -12,11 +13,12 @@ extends Control
 ]
 
 var scroll_index: int = 0
+var open_tween: Tween = null
 
 
 func _ready() -> void:
 	hide()
-	close_btn.pressed.connect(hide)
+	close_btn.pressed.connect(close_popup)
 	prev_btn.pressed.connect(_on_prev_pressed)
 	next_btn.pressed.connect(_on_next_pressed)
 	GameState.inventory_updated.connect(_refresh_slots)
@@ -25,14 +27,34 @@ func _ready() -> void:
 func open_popup() -> void:
 	scroll_index = 0
 	_refresh_slots()
+	_play_open_animation()
+
+
+func close_popup() -> void:
+	if open_tween != null and open_tween.is_valid():
+		open_tween.kill()
+	hide()
+
+
+func _play_open_animation() -> void:
+	if open_tween != null and open_tween.is_valid():
+		open_tween.kill()
 	show()
+	if inventory_panel == null:
+		return
+	await get_tree().process_frame
+	inventory_panel.pivot_offset = inventory_panel.size * 0.5
+	inventory_panel.scale = Vector2(0.92, 0.92)
+	inventory_panel.modulate.a = 0.0
+	open_tween = create_tween().set_parallel(true)
+	open_tween.tween_property(inventory_panel, "scale", Vector2.ONE, 0.20).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	open_tween.tween_property(inventory_panel, "modulate:a", 1.0, 0.16)
 
 
 func _refresh_slots() -> void:
 	var total_items := GameState.inventory.size()
 	empty_label.visible = (total_items == 0)
 	
-	# Pastikan scroll_index tetap aman jika ada item yang baru saja habis
 	if scroll_index > max(0, total_items - 3):
 		scroll_index = max(0, total_items - 3)
 		
@@ -64,7 +86,6 @@ func _refresh_slots() -> void:
 		else:
 			slot_panel.hide()
 			
-	# Atur aktif/nonaktif tombol panah geser
 	prev_btn.disabled = (scroll_index <= 0)
 	next_btn.disabled = (scroll_index + 3 >= total_items)
 

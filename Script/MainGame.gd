@@ -7,6 +7,8 @@ extends Control
 @export var tex_solo_ringan: Texture2D
 @export var tex_solo_sedang: Texture2D
 @export var tex_solo_berat: Texture2D
+@export_group("Audio Gameplay")
+@export var gameplay_bgm: AudioStream
 
 @export_group("Debug & Uji Coba")
 ## [UJI COBA] Matikan centang ini atau hapus pemanggilannya saat mekanik item awal sudah final.
@@ -26,14 +28,17 @@ extends Control
 @onready var diary_popup: Control = $DiaryPopup
 @onready var game_over_popup: Control = $GameOverPopup
 
+
 var world_env: Control = null
 var managed_popups: Array[Control] = []
 var flash_overlay: ColorRect = null
 
 var char_base_y: float = 0.0
 var walk_time: float = 0.0
+var critical_pulse_time: float = 0.0
 var is_any_popup_open: bool = false
 var active_floating_labels: Array[Label] = []
+var floating_stagger_index: int = 0
 
 # Pelacak perubahan nilai untuk memicu Floating Text & Screen Shake
 var prev_health: int = 100
@@ -69,6 +74,7 @@ func _ready() -> void:
 	GameState.phase_changed.connect(_on_phase_changed)
 	GameState.stats_updated.connect(_on_stats_updated)
 	GameState.inventory_updated.connect(_update_character_visuals)
+	GameState.item_lost_unintentionally.connect(_on_item_lost_unintentionally)
 	GameState.game_over.connect(_on_game_over)
 	GameState.game_won.connect(_on_game_won)
 	
@@ -91,14 +97,20 @@ func _ready() -> void:
 	_update_hud()
 	_update_character_visuals()
 	_start_daily_intro_flow()
+	AudioManager.play_bgm(gameplay_bgm)
 
 
 func _process(delta: float) -> void:
 	if not is_any_popup_open:
-		walk_time += delta * 6.0
-		char_root.position.y = char_base_y + sin(walk_time) * 4.0
+		var walk_speed: float = 3.8 if GameState.get_weight_category() == 3 else 6.0
+		var walk_amp: float = 2.8 if GameState.get_weight_category() == 3 else 4.0
+		walk_time += delta * walk_speed
+		char_root.position.y = char_base_y + sin(walk_time) * walk_amp
 	else:
 		char_root.position.y = char_base_y
+		
+	# Efek denyut ketegangan halus saat kondisi kritis (HP rendah atau Stres tinggi)
+	_update_critical_tension(delta)
 		
 	if not is_equal_approx(GameState.travel_points, prev_travel):
 		var d_travel: float = snappedf(GameState.travel_points - prev_travel, 0.05)
@@ -107,6 +119,25 @@ func _process(delta: float) -> void:
 			var sign_str: String = "+" if d_travel > 0.0 else ""
 			var col: Color = Color(1.0, 0.85, 0.25) if d_travel > 0.0 else Color(1.0, 0.45, 0.35)
 			_spawn_floating_text("%s%.1f km Jarak" % [sign_str, d_travel], col)
+
+
+func _update_critical_tension(delta: float) -> void:
+	if flash_overlay == null:
+		return
+	var is_critical: bool = (GameState.health <= 35 or GameState.stress >= 75)
+	if not is_critical:
+		critical_pulse_time = 0.0
+		if flash_overlay.color.a > 0.0 and not is_any_popup_open:
+			flash_overlay.color.a = move_toward(flash_overlay.color.a, 0.0, delta * 0.6)
+		return
+		
+	critical_pulse_time += delta * 2.4
+	var pulse_alpha: float = (0.5 + 0.5 * sin(critical_pulse_time)) * 0.11
+	if not is_any_popup_open and flash_overlay.color.a <= pulse_alpha + 0.02:
+		if GameState.health <= 35:
+			flash_overlay.color = Color(0.95, 0.15, 0.15, pulse_alpha)
+		else:
+			flash_overlay.color = Color(0.65, 0.20, 0.85, pulse_alpha)
 
 
 func _setup_flash_overlay() -> void:
@@ -118,8 +149,10 @@ func _setup_flash_overlay() -> void:
 	add_child(flash_overlay)
 
 
-# --- UMPAN BALIK PERUBAHAN STATUS (FLOATING TEXT & SCREEN SHAKE) ---
+# --- UMPAN BALIK PERUBAHAN STATUS & KEHILANGAN BARANG ---
 func _on_stats_updated() -> void:
+	floating_stagger_index = 0
+	
 	var d_hp: int = GameState.health - prev_health
 	var d_hgr: int = GameState.hunger - prev_hunger
 	var d_str: int = GameState.stress - prev_stress
@@ -145,35 +178,48 @@ func _on_stats_updated() -> void:
 		
 	if d_hp <= -15:
 		_trigger_screen_shake(9.0, 0.35)
-		_trigger_vignette_flash(Color(0.95, 0.15, 0.15, 0.26))
+		_trigger_vignette_flash(Color(0.95, 0.15, 0.15, 0.28))
 	elif d_str >= 20:
 		_trigger_screen_shake(5.0, 0.25)
-		_trigger_vignette_flash(Color(0.65, 0.20, 0.85, 0.22))
+		_trigger_vignette_flash(Color(0.65, 0.20, 0.85, 0.24))
+
+
+func _on_item_lost_unintentionally(item_name: String, amount: int) -> void:
+	_spawn_floating_text("-%d %s (Hilang!)" % [amount, item_name], Color(1.0, 0.45, 0.15))
+	_trigger_screen_shake(6.0, 0.25)
+	_trigger_vignette_flash(Color(1.0, 0.45, 0.10, 0.24))
+	if AudioManager.has_method("play_item_drop"):
+		AudioManager.play_item_drop()
 
 
 func _spawn_floating_text(msg: String, text_color: Color) -> void:
 	active_floating_labels = active_floating_labels.filter(func(l: Label) -> bool: return is_instance_valid(l))
 	
 	for existing_lbl in active_floating_labels:
-		existing_lbl.global_position.y -= 32.0
+		existing_lbl.global_position.y -= 34.0
 		
 	var lbl := Label.new()
 	lbl.text = msg
 	lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	lbl.z_index = 50
+	lbl.modulate.a = 0.0
 	lbl.add_theme_font_size_override("font_size", 22)
 	lbl.add_theme_color_override("font_color", text_color)
 	lbl.add_theme_color_override("font_outline_color", Color(0.08, 0.06, 0.05, 1.0))
 	lbl.add_theme_constant_override("outline_size", 5)
 	
-	var start_pos: Vector2 = char_root.global_position + Vector2(-20.0, -45.0)
+	var start_pos: Vector2 = char_root.global_position + Vector2(-24.0, -45.0)
 	lbl.global_position = start_pos
 	add_child(lbl)
 	active_floating_labels.append(lbl)
 	
+	var delay_sec: float = float(floating_stagger_index) * 0.16
+	floating_stagger_index += 1
+	
 	var tw: Tween = create_tween().set_parallel(true)
-	tw.tween_property(lbl, "global_position:y", -75.0, 1.45).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).as_relative()
-	tw.tween_property(lbl, "modulate:a", 0.0, 1.45).set_delay(0.45)
+	tw.tween_property(lbl, "modulate:a", 1.0, 0.14).set_delay(delay_sec)
+	tw.tween_property(lbl, "global_position:y", -78.0, 1.45).set_delay(delay_sec).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).as_relative()
+	tw.tween_property(lbl, "modulate:a", 0.0, 1.0).set_delay(delay_sec + 0.55)
 	tw.chain().tween_callback(func() -> void:
 		active_floating_labels.erase(lbl)
 		if is_instance_valid(lbl):
@@ -198,7 +244,7 @@ func _trigger_vignette_flash(flash_color: Color) -> void:
 		return
 	flash_overlay.color = flash_color
 	var flash_tw: Tween = create_tween()
-	flash_tw.tween_property(flash_overlay, "color:a", 0.0, 0.45).set_trans(Tween.TRANS_SINE)
+	flash_tw.tween_property(flash_overlay, "color:a", 0.0, 0.48).set_trans(Tween.TRANS_SINE)
 
 
 # --- SISTEM KUNCI EKSKLUSIF POP-UP ---
@@ -295,7 +341,7 @@ func _update_character_visuals() -> void:
 				
 	if selected_tex != null:
 		character_sprite.texture = selected_tex
-		character_sprite.modulate = Color.WHITE
+		character_sprite.modulate = Color(0.88, 0.86, 0.86, 1.0) if category == 3 else Color.WHITE
 	else:
 		var placeholder := PlaceholderTexture2D.new()
 		placeholder.size = character_sprite.size if character_sprite.size != Vector2.ZERO else Vector2(96, 160)

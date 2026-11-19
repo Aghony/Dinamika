@@ -3,20 +3,25 @@
 [ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_jipdi"]
 [ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_qbuut"]
 
-[sub_resource type="Resource" id="Resource_jipdi"]
+[sub_resource type="Resource" id="Resource_4di4x"]
 script = ExtResource("1_jipdi")
 choice_text = "Tidur menggigil menahan dingin"
-hunger_change = 15
+hunger_change = 18
 health_change = -24
-stress_change = 20
+stress_change = 22
+travel_change = -0.5
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 8
+heavy_load_extra_health = -4
 outcome_text = "Hawa dingin menusuk tulang membuatmu demam dan menggigil hingga subuh."
 
-[sub_resource type="Resource" id="Resource_qbuut"]
+[sub_resource type="Resource" id="Resource_ttmoo"]
 script = ExtResource("1_jipdi")
 choice_text = "Kenakan Jaket"
 required_items = Array[String](["jaket"])
-health_change = 12
-stress_change = -15
+hunger_change = 4
+health_change = 10
+stress_change = -12
 outcome_text = "Jaket tebal menjaga suhu tubuhmu tetap hangat dan mencegah hipotermia."
 
 [resource]
@@ -25,5 +30,5 @@ event_id = "evt_m5_udara_dingin"
 event_type = 1
 allowed_session = 1
 story_text = "Angin malam bertiup kencang membawa hawa dingin ekstrem setelah seharian berkeringat."
-item_choice_1 = SubResource("Resource_qbuut")
-ignore_choice = SubResource("Resource_jipdi")
+item_choice_1 = SubResource("Resource_ttmoo")
+ignore_choice = SubResource("Resource_4di4x")

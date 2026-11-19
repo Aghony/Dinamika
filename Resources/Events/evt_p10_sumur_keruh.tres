@@ -7,9 +7,13 @@
 script = ExtResource("1_epwb6")
 choice_text = "Minum air sumur keruh langsung"
 hunger_change = -5
-health_change = -28
-stress_change = 18
-outcome_text = "Air berabu membuat perutmu mual hebat dan tubuh lemas sepanjang siang."
+health_change = -26
+stress_change = 20
+travel_change = -0.5
+heavy_load_extra_hunger = 5
+heavy_load_extra_stress = 8
+heavy_load_extra_health = -4
+outcome_text = "Air berabu membuat perutmu mual hebat dan muntah-muntah sepanjang siang."
 
 [sub_resource type="Resource" id="Resource_blymt"]
 script = ExtResource("1_epwb6")
@@ -17,7 +21,7 @@ choice_text = "Minum persediaan Air Mineral"
 required_items = Array[String](["air_mineral"])
 consumed_items = Array[String](["air_mineral"])
 hunger_change = -15
-health_change = 15
+health_change = 12
 stress_change = -10
 outcome_text = "Kamu meminum air bersih dari tas tanpa mengambil risiko sakit perut."
 
@@ -27,14 +31,16 @@ choice_text = "Saring air pakai Masker"
 required_items = Array[String](["masker"])
 consumed_items = Array[String](["masker"])
 hunger_change = -10
-stress_change = -8
-outcome_text = "Masker menyaring abu kasar sehingga air cukup aman untuk membasuh wajah dan tenggorokan."
+stress_change = -6
+travel_change = -0.5
+outcome_text = "Masker menyaring abu kasar sehingga air cukup aman untuk membasuh tenggorokan."
 
 [resource]
 script = ExtResource("2_fnt3d")
 event_id = "evt_p10_sumur_keruh"
 event_type = 1
 allowed_session = 0
+min_day = 2
 story_text = "Menemukan sumur warga di pinggir jalan yang airnya keruh bercampur abu kebakaran."
 item_choice_1 = SubResource("Resource_blymt")
 item_choice_2 = SubResource("Resource_41nr5")

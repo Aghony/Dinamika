@@ -3,22 +3,26 @@
 [ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_k2ny3"]
 [ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_wgout"]
 
-[sub_resource type="Resource" id="Resource_k2ny3"]
+[sub_resource type="Resource" id="Resource_1g631"]
 script = ExtResource("1_k2ny3")
 choice_text = "Hemat air & paksakan jalan"
 hunger_change = 25
 health_change = -20
-stress_change = 15
-outcome_text = "Dehidrasi berat membuat langkah kakimu gontai di bawah terik matahari."
+stress_change = 18
+travel_change = -0.5
+heavy_load_extra_hunger = 8
+heavy_load_extra_stress = 8
+heavy_load_extra_health = -5
+outcome_text = "Dehidrasi berat membuat langkah kakimu gontai dan melambat di bawah terik matahari."
 
-[sub_resource type="Resource" id="Resource_wgout"]
+[sub_resource type="Resource" id="Resource_ycyad"]
 script = ExtResource("1_k2ny3")
 choice_text = "Minum Air Mineral"
 required_items = Array[String](["air_mineral"])
 consumed_items = Array[String](["air_mineral"])
 hunger_change = -15
-health_change = 15
-stress_change = -12
+health_change = 12
+stress_change = -10
 outcome_text = "Air mineral memulihkan cairan tubuh dan meringankan beban tas bawaanmu."
 
 [resource]
@@ -27,5 +31,5 @@ event_id = "evt_p4_kehausan"
 event_type = 1
 allowed_session = 0
 story_text = "Hawa panas dari hutan yang terbakar membuat udara kering kerontang. Tenggorokanmu terasa terbakar karena dehidrasi berat."
-item_choice_1 = SubResource("Resource_wgout")
-ignore_choice = SubResource("Resource_k2ny3")
+item_choice_1 = SubResource("Resource_ycyad")
+ignore_choice = SubResource("Resource_1g631")

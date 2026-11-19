@@ -3,29 +3,35 @@
 [ext_resource type="Script" uid="uid://7qiebdae1tlj" path="res://Script/Resources/EventChoice.gd" id="1_n7qi0"]
 [ext_resource type="Script" uid="uid://2ssetl8ysgtg" path="res://Script/Resources/EventData.gd" id="2_qumr5"]
 
-[sub_resource type="Resource" id="Resource_n7qi0"]
+[sub_resource type="Resource" id="Resource_7cmda"]
 script = ExtResource("1_n7qi0")
 choice_text = "Paksakan berjalan tertatih"
-hunger_change = 12
-health_change = -20
-stress_change = 15
+hunger_change = 15
+health_change = -22
+stress_change = 18
 travel_change = -1.0
+heavy_load_extra_hunger = 6
+heavy_load_extra_stress = 10
+heavy_load_extra_health = -5
 outcome_text = "Kram otot memaksamu berjalan lambat menahan nyeri luar biasa."
 
-[sub_resource type="Resource" id="Resource_qumr5"]
+[sub_resource type="Resource" id="Resource_q8h42"]
 script = ExtResource("1_n7qi0")
 choice_text = "Pasang Perban Coklat"
 required_items = Array[String](["perban_coklat"])
 consumed_items = Array[String](["perban_coklat"])
+hunger_change = 5
 health_change = 10
-travel_change = 1.5
-outcome_text = "Perban coklat menopang otot kakimu sehingga langkah kembali mantap dan cepat."
+stress_change = -5
+travel_change = 1.0
+outcome_text = "Perban coklat menopang otot kakimu sehingga langkah kembali mantap."
 
 [resource]
 script = ExtResource("2_qumr5")
 event_id = "evt_p5_kaki_pegal"
 event_type = 1
 allowed_session = 0
+min_day = 2
 story_text = "Beban gendongan dan jalan berbatu membuat otot betismu kram parah. Setiap langkah terasa menyiksa."
-item_choice_1 = SubResource("Resource_qumr5")
-ignore_choice = SubResource("Resource_n7qi0")
+item_choice_1 = SubResource("Resource_q8h42")
+ignore_choice = SubResource("Resource_7cmda")
